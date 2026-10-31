@@ -665,358 +665,772 @@ WHERE không thể dùng aggregate functions (SUM, COUNT, AVG...) vì chúng ch�
 // ── Practice Exercises ──────────────────────────
 export const EXERCISES = [
   {
-    id: 'ex1',
-    title: 'Lọc dữ liệu với điều kiện phức hợp',
-    skill: 'filtering',
-    difficulty: 'Easy',
-    tags: ['Pandas', 'Filtering'],
-    description: `Cho DataFrame chứa dữ liệu bán hàng sau:
-
-| order_id | product | category | amount | status |
-|----------|---------|----------|--------|--------|
-| 1 | Laptop | Electronics | 25000000 | completed |
-| 2 | Phone | Electronics | 8000000 | cancelled |
-| 3 | Shirt | Fashion | 350000 | completed |
-| ... | ... | ... | ... | ... |
-
-**Yêu cầu:** Lọc tất cả đơn hàng thỏa mãn:
-1. Status là "completed"
-2. Amount > 500,000
-3. Category không phải "Fashion"
-
-Trả về DataFrame đã lọc.`,
-    starterCode: `import pandas as pd
-import numpy as np
-
-# Tạo dữ liệu mẫu
-data = {
-    'order_id': range(1, 11),
-    'product': ['Laptop','Phone','Shirt','TV','Jeans','Tablet','Jacket','Camera','Shoes','Watch'],
-    'category': ['Electronics','Electronics','Fashion','Electronics','Fashion',
-                 'Electronics','Fashion','Electronics','Fashion','Accessories'],
-    'amount': [25000000, 8000000, 350000, 15000000, 450000,
-               12000000, 600000, 18000000, 250000, 5000000],
-    'status': ['completed','cancelled','completed','completed','completed',
-               'cancelled','completed','completed','completed','completed']
-}
-df = pd.DataFrame(data)
-
-# TODO: Lọc dữ liệu theo yêu cầu
-# result = df[...]
-# print(result)
-`,
-    solution: `result = df[
-    (df['status'] == 'completed') &
-    (df['amount'] > 500000) &
-    (df['category'] != 'Fashion')
-]
-print(result[['order_id','product','category','amount']])`,
-    expectedOutput: `   order_id product     category     amount
-0         1  Laptop  Electronics  25000000
-3         4      TV  Electronics  15000000
-5         6  Tablet  Electronics  12000000
-7         8  Camera  Electronics  18000000
-9        10   Watch  Accessories   5000000`,
-    xpReward: 50,
-    solved: false,
+    "id": "py-1",
+    "nodeId": "py",
+    "moduleName": "Python Fundamentals",
+    "title": "Khai báo biến và ép kiểu dữ liệu Python cơ bản",
+    "skill": "filtering",
+    "difficulty": "Easy",
+    "tags": [
+      "Python",
+      "Variables",
+      "Type Casting"
+    ],
+    "description": "Trong phân tích dữ liệu, dữ liệu thô nhập vào thường ở dạng chuỗi (string). Bạn cần chuyển đổi đúng kiểu dữ liệu (int, float, boolean) để sẵn sàng tính toán.\n\n**Yêu cầu:**\n1. Chuyển đổi chuỗi doanh thu `revenue_str = '15000000'` sang kiểu số nguyên (int).\n2. Chuyển đổi chuỗi tỉ lệ hoàn trả `refund_rate_str = '0.045'` sang kiểu số thực (float).\n3. Tính `net_revenue = revenue * (1 - refund_rate)` và in kết quả làm tròn thành số nguyên.",
+    "starterCode": "revenue_str = '15000000'\nrefund_rate_str = '0.045'\n\n# TODO: Chuyển đổi kiểu dữ liệu và tính net_revenue\nrevenue = int(revenue_str)\nrefund_rate = float(refund_rate_str)\nnet_revenue = int(revenue * (1 - refund_rate))\n\nprint(f\"Net Revenue: {net_revenue}\")\n",
+    "solution": "revenue = int('15000000')\nrefund_rate = float('0.045')\nnet_revenue = int(revenue * (1 - refund_rate))\nprint(f\"Net Revenue: {net_revenue}\")",
+    "expectedOutput": "Net Revenue: 14325000",
+    "xpReward": 50
   },
   {
-    id: 'ex2',
-    title: 'Xử lý Missing Values',
-    skill: 'missing_values',
-    difficulty: 'Easy',
-    tags: ['Pandas', 'Data Cleaning'],
-    description: `Bạn nhận được dataset khảo sát có nhiều giá trị bị thiếu.
-
-**Yêu cầu:**
-1. Tính tỷ lệ missing của mỗi cột
-2. Điền median cho cột "age" và "salary"
-3. Điền "Unknown" cho cột "department"
-4. Drop rows có quá nhiều NaN (> 2 cột bị thiếu)
-
-In ra số rows trước và sau khi xử lý.`,
-    starterCode: `import pandas as pd
-import numpy as np
-
-np.random.seed(42)
-n = 100
-df = pd.DataFrame({
-    'employee_id': range(1, n+1),
-    'age': np.where(np.random.random(n) < 0.15, np.nan, np.random.randint(22, 60, n).astype(float)),
-    'salary': np.where(np.random.random(n) < 0.1, np.nan, np.random.randint(8, 50, n) * 1000000.0),
-    'department': np.where(np.random.random(n) < 0.2, np.nan, 
-                           np.random.choice(['Engineering','Marketing','Sales','HR'], n)),
-    'experience': np.where(np.random.random(n) < 0.05, np.nan, np.random.randint(0, 20, n).astype(float))
-})
-
-print("Before:", df.shape)
-print("Missing values:")
-print(df.isnull().sum())
-
-# TODO: Xử lý missing values theo yêu cầu
-`,
-    solution: `# 1. Tỷ lệ missing
-print("Missing %:", df.isnull().sum() / len(df) * 100)
-
-# 2. Điền median cho numeric
-df['age'] = df['age'].fillna(df['age'].median())
-df['salary'] = df['salary'].fillna(df['salary'].median())
-
-# 3. Điền Unknown cho categorical
-df['department'] = df['department'].fillna('Unknown')
-
-# 4. Drop rows có > 2 NaN
-df = df.dropna(thresh=len(df.columns) - 2)
-print("After:", df.shape)`,
-    expectedOutput: `Before: (100, 5)
-Missing values:
-age            15
-salary         10
-department     20
-experience      5
-After: (95, 5)`,
-    xpReward: 50,
-    solved: false,
+    "id": "py-2",
+    "nodeId": "py",
+    "moduleName": "Python Fundamentals",
+    "title": "Xử lý chuỗi và List Comprehension nâng cao",
+    "skill": "filtering",
+    "difficulty": "Medium",
+    "tags": [
+      "Python",
+      "List Comprehension",
+      "String Manipulation"
+    ],
+    "description": "Bạn nhận được danh sách mã SKU sản phẩm từ kho vận bị lẫn khoảng trắng thừa và chữ thường/hoa không nhất quán: `['  vn-LAPTOP-01 ', ' VN-phone-02', 'VN-tablet-03  ', 'US-watch-04']`.\n\n**Yêu cầu:**\nSử dụng List Comprehension để làm sạch danh sách: loại bỏ khoảng trắng thừa, viết hoa toàn bộ và chỉ giữ lại các mã sản phẩm bắt đầu bằng `VN-`.",
+    "starterCode": "raw_skus = ['  vn-LAPTOP-01 ', ' VN-phone-02', 'VN-tablet-03  ', 'US-watch-04']\n\n# TODO: Viết 1 dòng list comprehension để lọc và chuẩn hóa\nclean_skus = [sku.strip().upper() for sku in raw_skus if sku.strip().upper().startswith('VN-')]\n\nprint(\"Cleaned SKUs:\", clean_skus)\n",
+    "solution": "raw_skus = ['  vn-LAPTOP-01 ', ' VN-phone-02', 'VN-tablet-03  ', 'US-watch-04']\nclean_skus = [sku.strip().upper() for sku in raw_skus if sku.strip().upper().startswith('VN-')]\nprint('Cleaned SKUs:', clean_skus)",
+    "expectedOutput": "Cleaned SKUs: ['VN-LAPTOP-01', 'VN-PHONE-02', 'VN-TABLET-03']",
+    "xpReward": 75
   },
   {
-    id: 'ex3',
-    title: 'GroupBy và Tổng hợp dữ liệu',
-    skill: 'groupby',
-    difficulty: 'Medium',
-    tags: ['Pandas', 'GroupBy'],
-    description: `Sử dụng dữ liệu bán hàng theo tháng và tỉnh thành.
-
-**Yêu cầu:**
-1. Tính tổng doanh thu, số đơn hàng và doanh thu trung bình theo từng tỉnh
-2. Tìm tỉnh có doanh thu cao nhất mỗi tháng
-3. Tính tỷ lệ tăng trưởng tháng so với tháng trước (MoM growth)
-4. Kết quả sắp xếp theo doanh thu giảm dần`,
-    starterCode: `import pandas as pd
-import numpy as np
-
-np.random.seed(42)
-provinces = ['Hà Nội', 'TP.HCM', 'Đà Nẵng', 'Hải Phòng', 'Cần Thơ']
-months = pd.date_range('2024-01', periods=10, freq='MS')
-
-rows = []
-for m in months:
-    for p in provinces:
-        rows.append({
-            'month': m,
-            'province': p,
-            'revenue': np.random.randint(500, 5000) * 1_000_000,
-            'orders': np.random.randint(50, 500)
-        })
-
-df = pd.DataFrame(rows)
-print(df.head())
-
-# TODO: GroupBy và tổng hợp
-`,
-    solution: `# 1. Tổng hợp theo tỉnh
-summary = df.groupby('province').agg(
-    total_revenue=('revenue', 'sum'),
-    total_orders=('orders', 'sum'),
-    avg_revenue=('revenue', 'mean')
-).round(0).sort_values('total_revenue', ascending=False)
-print(summary)
-
-# 2. Top tỉnh mỗi tháng
-top_by_month = df.loc[df.groupby('month')['revenue'].idxmax(), ['month','province','revenue']]
-print(top_by_month)
-
-# 3. MoM growth tổng
-monthly = df.groupby('month')['revenue'].sum()
-mom_growth = monthly.pct_change() * 100
-print(mom_growth.round(1))`,
-    expectedOutput: `         total_revenue  total_orders    avg_revenue
-TP.HCM    28500000000          2890   2850000000.0
-Hà Nội    25300000000          2540   2530000000.0
-Đà Nẵng   18200000000          1820   1820000000.0
-Hải Phòng 15800000000          1580   1580000000.0
-Cần Thơ   12400000000          1240   1240000000.0`,
-    xpReward: 100,
-    solved: false,
+    "id": "py-3",
+    "nodeId": "py",
+    "moduleName": "Python Fundamentals",
+    "title": "Tối ưu hóa thuật toán với Generator & Lambda",
+    "skill": "filtering",
+    "difficulty": "Hard",
+    "tags": [
+      "Python",
+      "Generators",
+      "Lambda",
+      "Memory Optimization"
+    ],
+    "description": "Khi xử lý stream dữ liệu hàng triệu dòng giao dịch, sử dụng Generator giúp tiết kiệm RAM vượt trội so với nạp toàn bộ mảng vào bộ nhớ.\n\n**Yêu cầu:**\n1. Viết generator function `stream_valid_transactions(transactions, min_amount)` sinh ra từng giao dịch có giá trị >= `min_amount`.\n2. Sử dụng lambda function để tính phí hoa hồng 1.5% cho mỗi giao dịch được stream ra.",
+    "starterCode": "transactions = [120000, 45000, 300000, 85000, 500000, 20000]\n\ndef stream_valid_transactions(tx_list, min_amount):\n    for tx in tx_list:\n        if tx >= min_amount:\n            yield tx\n\ncalc_fee = lambda x: x * 0.015\n\nvalid_fees = [calc_fee(tx) for tx in stream_valid_transactions(transactions, 100000)]\nprint(\"Transaction Fees:\", valid_fees)\n",
+    "solution": "transactions = [120000, 45000, 300000, 85000, 500000, 20000]\ndef stream_valid_transactions(tx_list, min_amount):\n    for tx in tx_list:\n        if tx >= min_amount:\n            yield tx\ncalc_fee = lambda x: x * 0.015\nvalid_fees = [calc_fee(tx) for tx in stream_valid_transactions(transactions, 100000)]\nprint('Transaction Fees:', valid_fees)",
+    "expectedOutput": "Transaction Fees: [1800.0, 4500.0, 7500.0]",
+    "xpReward": 100
   },
   {
-    id: 'ex4',
-    title: 'Merge DataFrame phức tạp',
-    skill: 'merge',
-    difficulty: 'Medium',
-    tags: ['Pandas', 'Merge', 'Join'],
-    description: `Bạn có 3 DataFrames từ các nguồn khác nhau. Cần gộp chúng lại để phân tích toàn diện.
-
-**Yêu cầu:**
-1. Merge df_orders với df_products theo product_id
-2. Merge kết quả với df_customers theo customer_id
-3. Tính tổng revenue theo customer_segment
-4. Tìm customers chưa đặt hàng (LEFT JOIN + isna)`,
-    starterCode: `import pandas as pd
-import numpy as np
-
-df_orders = pd.DataFrame({
-    'order_id': range(1, 8),
-    'customer_id': [1, 2, 1, 3, 2, 4, 1],
-    'product_id': [101, 102, 103, 101, 104, 102, 105],
-    'quantity': [2, 1, 3, 1, 2, 4, 1],
-    'unit_price': [500000, 1200000, 800000, 500000, 2000000, 1200000, 3500000]
-})
-
-df_products = pd.DataFrame({
-    'product_id': [101, 102, 103, 104, 105],
-    'product_name': ['Áo phông', 'Quần jean', 'Váy', 'Giày thể thao', 'Túi xách'],
-    'category': ['Tops', 'Bottoms', 'Dress', 'Shoes', 'Bags']
-})
-
-df_customers = pd.DataFrame({
-    'customer_id': [1, 2, 3, 4, 5],
-    'name': ['An', 'Bình', 'Châu', 'Dung', 'Em'],
-    'segment': ['VIP', 'Regular', 'VIP', 'Regular', 'New']
-})
-
-# TODO: Merge và phân tích
-`,
-    solution: `# Merge 3 bảng
-merged = df_orders.merge(df_products, on='product_id').merge(df_customers, on='customer_id')
-merged['revenue'] = merged['quantity'] * merged['unit_price']
-
-# Revenue theo segment
-by_segment = merged.groupby('segment')['revenue'].sum().sort_values(ascending=False)
-print("Revenue by segment:")
-print(by_segment)
-
-# Customers chưa đặt hàng
-all_customers = df_customers.merge(df_orders[['customer_id']], on='customer_id', how='left')
-no_order = all_customers[all_customers['order_id'].isna()]['name'].tolist()
-print(f"No orders: {no_order}")`,
-    expectedOutput: `Revenue by segment:
-segment
-VIP        13300000
-Regular     7200000
-Name: revenue, dtype: int64
-
-No orders: ['Em']`,
-    xpReward: 100,
-    solved: false,
+    "id": "np-1",
+    "nodeId": "np",
+    "moduleName": "NumPy",
+    "title": "Khởi tạo mảng NumPy và Reshape ma trận 2D",
+    "skill": "statistics",
+    "difficulty": "Easy",
+    "tags": [
+      "NumPy",
+      "Arrays",
+      "Reshape"
+    ],
+    "description": "Cho mảng doanh thu 12 tháng liên tục: `[12, 15, 18, 14, 20, 22, 25, 28, 24, 30, 32, 35]`.\n\n**Yêu cầu:**\n1. Chuyển danh sách thành mảng `numpy.ndarray` 1 chiều.\n2. Reshape ma trận thành kích thước `(4, 3)` tượng trưng cho 4 quý trong năm, mỗi quý 3 tháng.\n3. Tính tổng doanh thu của từng Quý bằng `np.sum(axis=1)`.",
+    "starterCode": "import numpy as np\n\nmonthly_rev = np.array([12, 15, 18, 14, 20, 22, 25, 28, 24, 30, 32, 35])\nquarterly_matrix = monthly_rev.reshape(4, 3)\nquarterly_totals = np.sum(quarterly_matrix, axis=1)\n\nprint(\"Quarterly Matrix Shape:\", quarterly_matrix.shape)\nprint(\"Quarterly Totals:\", quarterly_totals)\n",
+    "solution": "import numpy as np\nmonthly_rev = np.array([12, 15, 18, 14, 20, 22, 25, 28, 24, 30, 32, 35])\nquarterly_matrix = monthly_rev.reshape(4, 3)\nquarterly_totals = np.sum(quarterly_matrix, axis=1)\nprint('Quarterly Matrix Shape:', quarterly_matrix.shape)\nprint('Quarterly Totals:', quarterly_totals)",
+    "expectedOutput": "Quarterly Matrix Shape: (4, 3)\nQuarterly Totals: [45 56 77 97]",
+    "xpReward": 50
   },
   {
-    id: 'ex5',
-    title: 'Thống kê mô tả toàn diện',
-    skill: 'statistics',
-    difficulty: 'Easy',
-    tags: ['Statistics', 'Pandas', 'NumPy'],
-    description: `Thực hiện phân tích thống kê mô tả đầy đủ cho dataset lương nhân viên.
-
-**Yêu cầu:**
-1. Tính mean, median, mode, std, min, max, Q1, Q3, IQR
-2. Kiểm tra skewness (phân phối lệch)
-3. Xác định outlier bằng IQR method
-4. Tóm tắt kết quả dạng readable`,
-    starterCode: `import pandas as pd
-import numpy as np
-from scipy import stats
-
-np.random.seed(42)
-salaries = np.concatenate([
-    np.random.normal(15_000_000, 3_000_000, 180),
-    np.random.normal(40_000_000, 8_000_000, 15),
-    np.random.normal(5_000_000, 1_000_000, 5)
-])
-
-df = pd.DataFrame({'salary': salaries.clip(min=3_000_000)})
-
-# TODO: Thống kê mô tả đầy đủ
-`,
-    solution: `col = df['salary']
-
-mean = col.mean()
-median = col.median()
-std = col.std()
-Q1, Q3 = col.quantile([0.25, 0.75])
-IQR = Q3 - Q1
-skewness = col.skew()
-
-outliers = col[(col < Q1 - 1.5*IQR) | (col > Q3 + 1.5*IQR)]
-
-print(f"Mean:     {mean:>15,.0f} VND")
-print(f"Median:   {median:>15,.0f} VND")
-print(f"Std:      {std:>15,.0f} VND")
-print(f"Q1:       {Q1:>15,.0f} VND")
-print(f"Q3:       {Q3:>15,.0f} VND")
-print(f"IQR:      {IQR:>15,.0f} VND")
-print(f"Skewness: {skewness:>15.3f} {'(right skewed)' if skewness > 0 else '(left skewed)'}")
-print(f"Outliers: {len(outliers)} giá trị")`,
-    expectedOutput: `Mean:      16,842,318 VND
-Median:    15,124,503 VND
-Std:       7,231,445 VND
-Q1:        12,398,211 VND
-Q3:        18,892,104 VND
-IQR:        6,493,893 VND
-Skewness:        1.842 (right skewed)
-Outliers: 18 giá trị`,
-    xpReward: 50,
-    solved: false,
+    "id": "np-2",
+    "nodeId": "np",
+    "moduleName": "NumPy",
+    "title": "Thao tác Broadcasting và Matrix Multiplication",
+    "skill": "statistics",
+    "difficulty": "Medium",
+    "tags": [
+      "NumPy",
+      "Broadcasting",
+      "Dot Product"
+    ],
+    "description": "Bạn có ma trận số lượng bán của 3 sản phẩm tại 2 cửa hàng, và mảng đơn giá tương ứng.\n- `quantities = np.array([[10, 20, 30], [5, 15, 25]])` (shape: 2x3)\n- `prices = np.array([100, 200, 150])` (đơn giá của 3 sản phẩm)\n\n**Yêu cầu:** Tính doanh thu của từng cửa hàng bằng phép nhân ma trận Dot Product (`@` hoặc `np.dot`).",
+    "starterCode": "import numpy as np\n\nquantities = np.array([[10, 20, 30], [5, 15, 25]])\nprices = np.array([100, 200, 150])\n\nstore_revenues = quantities @ prices\nprint(\"Store Revenues:\", store_revenues)\n",
+    "solution": "import numpy as np\nquantities = np.array([[10, 20, 30], [5, 15, 25]])\nprices = np.array([100, 200, 150])\nstore_revenues = quantities @ prices\nprint('Store Revenues:', store_revenues)",
+    "expectedOutput": "Store Revenues: [9500 7250]",
+    "xpReward": 75
   },
   {
-    id: 'ex6',
-    title: 'Phát hiện và xử lý Outlier',
-    skill: 'outliers',
-    difficulty: 'Hard',
-    tags: ['Statistics', 'Pandas', 'NumPy'],
-    description: `Dataset doanh thu bán hàng có nhiều outlier do lỗi nhập liệu và giao dịch đặc biệt.
-
-**Yêu cầu:**
-1. Phát hiện outlier bằng cả IQR method và Z-score method
-2. So sánh kết quả hai phương pháp
-3. Quyết định: outlier nào cần xoá, outlier nào cần giữ?
-4. Tính lại thống kê sau khi xử lý và so sánh với trước`,
-    starterCode: `import pandas as pd
-import numpy as np
-from scipy import stats
-
-np.random.seed(42)
-normal_sales = np.random.normal(5_000_000, 1_500_000, 500)
-outliers_error = [-1_000_000, -500_000, 0, 0]  # lỗi âm hoặc zero
-outliers_high = [50_000_000, 45_000_000, 48_000_000]  # giao dịch lớn hợp lệ?
-
-data = np.concatenate([normal_sales, outliers_error, outliers_high])
-df = pd.DataFrame({'revenue': data, 'date': pd.date_range('2024-01-01', periods=len(data))})
-
-print(f"Total rows: {len(df)}")
-print(df['revenue'].describe())
-
-# TODO: Phát hiện và xử lý outlier
-`,
-    solution: `# IQR Method
-Q1, Q3 = df['revenue'].quantile([0.25, 0.75])
-IQR = Q3 - Q1
-iqr_outliers = df[(df['revenue'] < Q1 - 1.5*IQR) | (df['revenue'] > Q3 + 1.5*IQR)]
-
-# Z-score Method
-z_scores = np.abs(stats.zscore(df['revenue']))
-zscore_outliers = df[z_scores > 3]
-
-print(f"IQR outliers: {len(iqr_outliers)}")
-print(f"Z-score outliers: {len(zscore_outliers)}")
-
-# Business logic: xoá giá trị âm/zero, giữ giao dịch lớn hợp lệ
-df_clean = df[df['revenue'] > 0].copy()
-
-# So sánh trước/sau
-print(f"\\nBefore - Mean: {df['revenue'].mean():,.0f}, Median: {df['revenue'].median():,.0f}")
-print(f"After  - Mean: {df_clean['revenue'].mean():,.0f}, Median: {df_clean['revenue'].median():,.0f}")
-print(f"Removed {len(df) - len(df_clean)} invalid records")`,
-    expectedOutput: `IQR outliers: 10
-Z-score outliers: 7
-Before - Mean: 4,894,123, Median: 4,987,234
-After  - Mean: 5,021,456, Median: 4,998,123
-Removed 4 invalid records`,
-    xpReward: 200,
-    solved: false,
+    "id": "np-3",
+    "nodeId": "np",
+    "moduleName": "NumPy",
+    "title": "Tối ưu tính toán đại số tuyến tính với numpy.linalg",
+    "skill": "statistics",
+    "difficulty": "Hard",
+    "tags": [
+      "NumPy",
+      "Linear Algebra",
+      "Linalg",
+      "Optimization"
+    ],
+    "description": "Trong mô hình dự báo kinh tế lượng (OLS Regression), hệ số hồi quy được giải theo công thức $B = (X^T X)^{-1} X^T Y$.\n\n**Yêu cầu:**\nCho ma trận feature `X = np.array([[1, 2], [1, 3], [1, 4], [1, 5]])` và nhãn `Y = np.array([5, 7, 9, 11])`.\nSử dụng `np.linalg.inv` hoặc `np.linalg.pinv` để tìm vector trọng số `beta`.",
+    "starterCode": "import numpy as np\n\nX = np.array([[1, 2], [1, 3], [1, 4], [1, 5]])\nY = np.array([5, 7, 9, 11])\n\n# Beta = (X^T * X)^(-1) * X^T * Y\nbeta = np.linalg.inv(X.T @ X) @ X.T @ Y\nprint(\"Intercept and Slope:\", np.round(beta, 2))\n",
+    "solution": "import numpy as np\nX = np.array([[1, 2], [1, 3], [1, 4], [1, 5]])\nY = np.array([5, 7, 9, 11])\nbeta = np.linalg.inv(X.T @ X) @ X.T @ Y\nprint('Intercept and Slope:', np.round(beta, 2))",
+    "expectedOutput": "Intercept and Slope: [1. 2.]",
+    "xpReward": 100
   },
+  {
+    "id": "ex1",
+    "nodeId": "pd",
+    "moduleName": "Pandas",
+    "title": "Lọc dữ liệu với điều kiện phức hợp",
+    "skill": "filtering",
+    "difficulty": "Easy",
+    "tags": [
+      "Pandas",
+      "Filtering",
+      "Boolean Indexing"
+    ],
+    "description": "Cho DataFrame chứa dữ liệu bán hàng. Lọc tất cả đơn hàng thỏa mãn:\n1. Status là 'completed'\n2. Amount > 500,000\n3. Category không phải 'Fashion'",
+    "starterCode": "import pandas as pd\n\ndata = {\n    'order_id': range(1, 6),\n    'product': ['Laptop', 'Phone', 'Shirt', 'TV', 'Jeans'],\n    'category': ['Electronics', 'Electronics', 'Fashion', 'Electronics', 'Fashion'],\n    'amount': [25000000, 8000000, 350000, 15000000, 450000],\n    'status': ['completed', 'cancelled', 'completed', 'completed', 'completed']\n}\ndf = pd.DataFrame(data)\n\nresult = df[(df['status'] == 'completed') & (df['amount'] > 500000) & (df['category'] != 'Fashion')]\nprint(\"Filtered Count:\", len(result))\nprint(result[['order_id', 'product', 'amount']])\n",
+    "solution": "import pandas as pd\ndata = {'order_id': range(1, 6), 'product': ['Laptop', 'Phone', 'Shirt', 'TV', 'Jeans'], 'category': ['Electronics', 'Electronics', 'Fashion', 'Electronics', 'Fashion'], 'amount': [25000000, 8000000, 350000, 15000000, 450000], 'status': ['completed', 'cancelled', 'completed', 'completed', 'completed']}\ndf = pd.DataFrame(data)\nresult = df[(df['status'] == 'completed') & (df['amount'] > 500000) & (df['category'] != 'Fashion')]\nprint('Filtered Count:', len(result))\nprint(result[['order_id', 'product', 'amount']])",
+    "expectedOutput": "Filtered Count: 2\n   order_id product    amount\n0         1  Laptop  25000000\n3         4      TV  15000000",
+    "xpReward": 50
+  },
+  {
+    "id": "pd-2",
+    "nodeId": "pd",
+    "moduleName": "Pandas",
+    "title": "Indexing đa tầng (MultiIndex) và Slicing nâng cao",
+    "skill": "filtering",
+    "difficulty": "Medium",
+    "tags": [
+      "Pandas",
+      "MultiIndex",
+      "Loc",
+      "Slicing"
+    ],
+    "description": "Trong báo cáo tài chính khu vực, dữ liệu thường được phân tầng theo `[Region, Year]`. Hãy sử dụng `.set_index()` và `.loc` để truy xuất doanh thu của miền 'North' trong năm 2024.",
+    "starterCode": "import pandas as pd\n\ndata = {\n    'Region': ['North', 'North', 'South', 'South'],\n    'Year': [2023, 2024, 2023, 2024],\n    'Revenue': [1200, 1500, 900, 1100]\n}\ndf = pd.DataFrame(data).set_index(['Region', 'Year'])\n\ntarget_rev = df.loc[('North', 2024), 'Revenue']\nprint(f\"North 2024 Revenue: {target_rev}\")\n",
+    "solution": "import pandas as pd\ndata = {'Region': ['North', 'North', 'South', 'South'], 'Year': [2023, 2024, 2023, 2024], 'Revenue': [1200, 1500, 900, 1100]}\ndf = pd.DataFrame(data).set_index(['Region', 'Year'])\nprint(f\"North 2024 Revenue: {df.loc[('North', 2024), 'Revenue']}\")",
+    "expectedOutput": "North 2024 Revenue: 1500",
+    "xpReward": 75
+  },
+  {
+    "id": "pd-3",
+    "nodeId": "pd",
+    "moduleName": "Pandas",
+    "title": "Xử lý dữ liệu chuỗi thời gian (TimeSeries Resampling)",
+    "skill": "filtering",
+    "difficulty": "Hard",
+    "tags": [
+      "Pandas",
+      "TimeSeries",
+      "Resample",
+      "Rolling Window"
+    ],
+    "description": "Dữ liệu bán hàng theo ngày cần được tổng hợp lại theo tuần (Weekly) và tính trung bình động 7 ngày (7-day rolling mean) để làm mịn xu hướng.\n\n**Yêu cầu:** Chuyển cột ngày thành DatetimeIndex, resample theo tuần ('W') và tính tổng doanh thu tuần.",
+    "starterCode": "import pandas as pd\n\ndates = pd.date_range('2024-01-01', periods=14, freq='D')\nrev = [100, 120, 110, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230]\ndf = pd.DataFrame({'Revenue': rev}, index=dates)\n\nweekly = df.resample('W').sum()\nprint(\"Weekly Totals:\")\nprint(weekly)\n",
+    "solution": "import pandas as pd\ndates = pd.date_range('2024-01-01', periods=14, freq='D')\nrev = [100, 120, 110, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230]\ndf = pd.DataFrame({'Revenue': rev}, index=dates)\nweekly = df.resample('W').sum()\nprint('Weekly Totals:')\nprint(weekly)",
+    "expectedOutput": "Weekly Totals:\n            Revenue\n2024-01-07      910\n2024-01-14     1400",
+    "xpReward": 100
+  },
+  {
+    "id": "ex2",
+    "nodeId": "dc",
+    "moduleName": "Data Cleaning",
+    "title": "Xử lý Missing Values đa dạng chiến lược",
+    "skill": "missing_values",
+    "difficulty": "Easy",
+    "tags": [
+      "Pandas",
+      "Data Cleaning",
+      "Imputation"
+    ],
+    "description": "Xử lý giá trị null trong DataFrame nhân sự:\n1. Cột 'department': điền 'Unknown'\n2. Cột 'salary': điền bằng giá trị median\n3. Cột 'email': xóa bỏ các dòng bị thiếu email",
+    "starterCode": "import pandas as pd\nimport numpy as np\n\ndata = {\n    'name': ['An', 'Binh', 'Chi', 'Dung', 'Em'],\n    'department': ['IT', np.nan, 'HR', 'IT', np.nan],\n    'salary': [15000000, 22000000, np.nan, 18000000, 12000000],\n    'email': ['an@co.com', 'binh@co.com', np.nan, 'dung@co.com', 'em@co.com']\n}\ndf = pd.DataFrame(data)\n\ndf['department'] = df['department'].fillna('Unknown')\ndf['salary'] = df['salary'].fillna(df['salary'].median())\nclean_df = df.dropna(subset=['email'])\n\nprint(\"Remaining rows:\", len(clean_df))\nprint(clean_df[['name', 'department', 'salary']])\n",
+    "solution": "import pandas as pd\nimport numpy as np\ndata = {'name': ['An', 'Binh', 'Chi', 'Dung', 'Em'], 'department': ['IT', np.nan, 'HR', 'IT', np.nan], 'salary': [15000000, 22000000, np.nan, 18000000, 12000000], 'email': ['an@co.com', 'binh@co.com', np.nan, 'dung@co.com', 'em@co.com']}\ndf = pd.DataFrame(data)\ndf['department'] = df['department'].fillna('Unknown')\ndf['salary'] = df['salary'].fillna(df['salary'].median())\nclean_df = df.dropna(subset=['email'])\nprint('Remaining rows:', len(clean_df))\nprint(clean_df[['name', 'department', 'salary']])",
+    "expectedOutput": "Remaining rows: 4\n    name department      salary\n0     An         IT  15000000.0\n1   Binh    Unknown  22000000.0\n3   Dung         IT  18000000.0\n4     Em    Unknown  12000000.0",
+    "xpReward": 50
+  },
+  {
+    "id": "dc-2",
+    "nodeId": "dc",
+    "moduleName": "Data Cleaning",
+    "title": "Chuẩn hóa chuỗi văn bản và định dạng ngày tháng",
+    "skill": "missing_values",
+    "difficulty": "Medium",
+    "tags": [
+      "Data Cleaning",
+      "Regex",
+      "Datetime Parsing"
+    ],
+    "description": "Cột ngày tháng `['2024/01/15', '16-02-2024', '2024.03.20']` bị định dạng hỗn tạp. Hãy dùng `pd.to_datetime(format='mixed')` để chuẩn hóa tất cả về định dạng ISO YYYY-MM-DD.",
+    "starterCode": "import pandas as pd\n\nraw_dates = pd.Series(['2024/01/15', '2024-02-16', '2024.03.20'])\nclean_dates = pd.to_datetime(raw_dates, format='mixed').dt.strftime('%Y-%m-%d')\n\nprint(\"Standardized Dates:\")\nprint(clean_dates.tolist())\n",
+    "solution": "import pandas as pd\nraw_dates = pd.Series(['2024/01/15', '2024-02-16', '2024.03.20'])\nclean_dates = pd.to_datetime(raw_dates, format='mixed').dt.strftime('%Y-%m-%d')\nprint('Standardized Dates:')\nprint(clean_dates.tolist())",
+    "expectedOutput": "Standardized Dates:\n['2024-01-15', '2024-02-16', '2024-03-20']",
+    "xpReward": 75
+  },
+  {
+    "id": "dc-3",
+    "nodeId": "dc",
+    "moduleName": "Data Cleaning",
+    "title": "Khử trùng lặp và làm sạch bộ dữ liệu đa nguồn",
+    "skill": "missing_values",
+    "difficulty": "Hard",
+    "tags": [
+      "Data Cleaning",
+      "Deduplication",
+      "Composite Keys"
+    ],
+    "description": "Bộ dữ liệu đơn hàng bị trùng lặp do đồng bộ nhiều lần. Hãy khử trùng lặp theo cặp khóa `['customer_id', 'order_date']` và chỉ giữ lại bản ghi có `order_amount` lớn nhất.",
+    "starterCode": "import pandas as pd\n\ndata = {\n    'customer_id': [101, 102, 101, 103, 102],\n    'order_date': ['2024-01-01', '2024-01-02', '2024-01-01', '2024-01-03', '2024-01-02'],\n    'order_amount': [500, 700, 650, 400, 700]\n}\ndf = pd.DataFrame(data)\n\n# Sắp xếp giảm dần theo amount và drop duplicates giữ bản ghi đầu\ndf_sorted = df.sort_values('order_amount', ascending=False)\ndeduped = df_sorted.drop_duplicates(subset=['customer_id', 'order_date'], keep='first').sort_index()\n\nprint(\"Deduplicated Count:\", len(deduped))\nprint(deduped[['customer_id', 'order_amount']])\n",
+    "solution": "import pandas as pd\ndata = {'customer_id': [101, 102, 101, 103, 102], 'order_date': ['2024-01-01', '2024-01-02', '2024-01-01', '2024-01-03', '2024-01-02'], 'order_amount': [500, 700, 650, 400, 700]}\ndf = pd.DataFrame(data)\ndf_sorted = df.sort_values('order_amount', ascending=False)\ndeduped = df_sorted.drop_duplicates(subset=['customer_id', 'order_date'], keep='first').sort_index()\nprint('Deduplicated Count:', len(deduped))\nprint(deduped[['customer_id', 'order_amount']])",
+    "expectedOutput": "Deduplicated Count: 3\n   customer_id  order_amount\n1          102           700\n2          101           650\n3          103           400",
+    "xpReward": 100
+  },
+  {
+    "id": "ex3",
+    "nodeId": "dt",
+    "moduleName": "Data Transformation",
+    "title": "GroupBy và Tổng hợp doanh thu chi nhánh",
+    "skill": "groupby",
+    "difficulty": "Easy",
+    "tags": [
+      "Pandas",
+      "GroupBy",
+      "Aggregation"
+    ],
+    "description": "Nhóm dữ liệu theo chi nhánh (branch) và danh mục (category) để tính tổng doanh thu và số lượng đơn hàng.",
+    "starterCode": "import pandas as pd\n\ndata = {\n    'branch': ['HN', 'HN', 'HCM', 'HCM', 'HCM'],\n    'category': ['Food', 'Tech', 'Food', 'Tech', 'Food'],\n    'revenue': [100, 200, 150, 300, 250]\n}\ndf = pd.DataFrame(data)\n\nsummary = df.groupby('branch')['revenue'].agg(['sum', 'count']).rename(columns={'sum': 'Total_Rev', 'count': 'Orders'})\nprint(summary)\n",
+    "solution": "import pandas as pd\ndata = {'branch': ['HN', 'HN', 'HCM', 'HCM', 'HCM'], 'category': ['Food', 'Tech', 'Food', 'Tech', 'Food'], 'revenue': [100, 200, 150, 300, 250]}\ndf = pd.DataFrame(data)\nsummary = df.groupby('branch')['revenue'].agg(['sum', 'count']).rename(columns={'sum': 'Total_Rev', 'count': 'Orders'})\nprint(summary)",
+    "expectedOutput": "        Total_Rev  Orders\nbranch                   \nHCM           700       3\nHN            300       2",
+    "xpReward": 50
+  },
+  {
+    "id": "ex4",
+    "nodeId": "dt",
+    "moduleName": "Data Transformation",
+    "title": "Merge và Nối bảng dữ liệu khách hàng",
+    "skill": "merge",
+    "difficulty": "Medium",
+    "tags": [
+      "Pandas",
+      "Merge",
+      "Joins"
+    ],
+    "description": "Thực hiện LEFT JOIN giữa bảng `customers` và bảng `orders` dựa trên khóa `customer_id`. Điền 0 cho những khách hàng chưa phát sinh đơn nào.",
+    "starterCode": "import pandas as pd\n\ncustomers = pd.DataFrame({'cust_id': [1, 2, 3], 'name': ['Minh', 'Hoa', 'Tuan']})\norders = pd.DataFrame({'cust_id': [1, 1, 2], 'amount': [500, 300, 700]})\n\nmerged = pd.merge(customers, orders, on='cust_id', how='left')\nmerged['amount'] = merged['amount'].fillna(0)\nprint(merged)\n",
+    "solution": "import pandas as pd\ncustomers = pd.DataFrame({'cust_id': [1, 2, 3], 'name': ['Minh', 'Hoa', 'Tuan']})\norders = pd.DataFrame({'cust_id': [1, 1, 2], 'amount': [500, 300, 700]})\nmerged = pd.merge(customers, orders, on='cust_id', how='left')\nmerged['amount'] = merged['amount'].fillna(0)\nprint(merged)",
+    "expectedOutput": "   cust_id  name  amount\n0        1  Minh   500.0\n1        1  Minh   300.0\n2        2   Hoa   700.0\n3        3  Tuan     0.0",
+    "xpReward": 75
+  },
+  {
+    "id": "dt-3",
+    "nodeId": "dt",
+    "moduleName": "Data Transformation",
+    "title": "Window Functions và tính toán Running Total bằng Pandas",
+    "skill": "groupby",
+    "difficulty": "Hard",
+    "tags": [
+      "Pandas",
+      "Window Functions",
+      "Cumulative Sum"
+    ],
+    "description": "Tính tổng lũy kế doanh thu cộng dồn theo thời gian (Running Total / Cumulative Sum) và tỉ trọng % đóng góp của từng đơn hàng so với tổng doanh thu.",
+    "starterCode": "import pandas as pd\n\ndf = pd.DataFrame({\n    'day': [1, 2, 3, 4],\n    'revenue': [1000, 1500, 800, 1700]\n})\n\ndf['running_total'] = df['revenue'].cumsum()\ndf['pct_share'] = (df['revenue'] / df['revenue'].sum() * 100).round(1)\nprint(df)\n",
+    "solution": "import pandas as pd\ndf = pd.DataFrame({'day': [1, 2, 3, 4], 'revenue': [1000, 1500, 800, 1700]})\ndf['running_total'] = df['revenue'].cumsum()\ndf['pct_share'] = (df['revenue'] / df['revenue'].sum() * 100).round(1)\nprint(df)",
+    "expectedOutput": "   day  revenue  running_total  pct_share\n0    1     1000           1000       20.0\n1    2     1500           2500       30.0\n2    3      800           3300       16.0\n3    4     1700           5000       34.0",
+    "xpReward": 100
+  },
+  {
+    "id": "sql1-1",
+    "nodeId": "sql1",
+    "moduleName": "SQL Fundamentals",
+    "title": "Truy vấn danh sách đơn hàng có điều kiện lọc",
+    "skill": "filtering",
+    "difficulty": "Easy",
+    "tags": [
+      "SQL",
+      "SELECT",
+      "WHERE",
+      "ORDER BY"
+    ],
+    "description": "Viết câu lệnh SQL truy vấn các cột `order_id`, `customer_id`, `total_amount` từ bảng `orders` thỏa mãn: `status = 'completed'` và `total_amount >= 1000000`, sắp xếp giảm dần theo số tiền.",
+    "starterCode": "# Giả lập SQLite engine trong Python Sandbox\nimport sqlite3\nimport pandas as pd\n\nconn = sqlite3.connect(':memory:')\nconn.execute('''CREATE TABLE orders (order_id INT, customer_id INT, total_amount INT, status TEXT)''')\nconn.executemany('''INSERT INTO orders VALUES (?, ?, ?, ?)''', [\n    (1, 101, 1500000, 'completed'),\n    (2, 102, 800000, 'completed'),\n    (3, 103, 2300000, 'cancelled'),\n    (4, 104, 3200000, 'completed')\n])\n\nsql_query = \"\"\"\nSELECT order_id, customer_id, total_amount \nFROM orders \nWHERE status = 'completed' AND total_amount >= 1000000 \nORDER BY total_amount DESC;\n\"\"\"\n\nres = pd.read_sql_query(sql_query, conn)\nprint(res)\n",
+    "solution": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (order_id INT, customer_id INT, total_amount INT, status TEXT)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?, ?)', [(1, 101, 1500000, 'completed'), (2, 102, 800000, 'completed'), (3, 103, 2300000, 'cancelled'), (4, 104, 3200000, 'completed')])\nsql_query = 'SELECT order_id, customer_id, total_amount FROM orders WHERE status = \\'completed\\' AND total_amount >= 1000000 ORDER BY total_amount DESC;'\nprint(pd.read_sql_query(sql_query, conn))",
+    "expectedOutput": "   order_id  customer_id  total_amount\n0         4          104       3200000\n1         1          101       1500000",
+    "xpReward": 50
+  },
+  {
+    "id": "sql1-2",
+    "nodeId": "sql1",
+    "moduleName": "SQL Fundamentals",
+    "title": "Tính toán giá trị đơn hàng với biểu thức CASE WHEN",
+    "skill": "filtering",
+    "difficulty": "Medium",
+    "tags": [
+      "SQL",
+      "CASE WHEN",
+      "Conditional Logic"
+    ],
+    "description": "Sử dụng mệnh đề `CASE WHEN` trong SQL để phân nhóm khách hàng (Customer Tier):\n- `total_spend >= 5000000`: 'VIP'\n- `total_spend >= 2000000`: 'Gold'\n- Còn lại: 'Standard'",
+    "starterCode": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (cust_id INT, name TEXT, total_spend INT)')\nconn.executemany('INSERT INTO customers VALUES (?, ?, ?)', [\n    (1, 'An', 6000000),\n    (2, 'Binh', 3500000),\n    (3, 'Cuong', 800000)\n])\n\nquery = \"\"\"\nSELECT name, total_spend,\n       CASE \n         WHEN total_spend >= 5000000 THEN 'VIP'\n         WHEN total_spend >= 2000000 THEN 'Gold'\n         ELSE 'Standard'\n       END AS customer_tier\nFROM customers;\n\"\"\"\nprint(pd.read_sql_query(query, conn))\n",
+    "solution": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (cust_id INT, name TEXT, total_spend INT)')\nconn.executemany('INSERT INTO customers VALUES (?, ?, ?)', [(1, 'An', 6000000), (2, 'Binh', 3500000), (3, 'Cuong', 800000)])\nquery = \"SELECT name, total_spend, CASE WHEN total_spend >= 5000000 THEN 'VIP' WHEN total_spend >= 2000000 THEN 'Gold' ELSE 'Standard' END AS customer_tier FROM customers;\"\nprint(pd.read_sql_query(query, conn))",
+    "expectedOutput": "    name  total_spend customer_tier\n0     An      6000000           VIP\n1   Binh      3500000          Gold\n2  Cuong       800000      Standard",
+    "xpReward": 75
+  },
+  {
+    "id": "sql1-3",
+    "nodeId": "sql1",
+    "moduleName": "SQL Fundamentals",
+    "title": "Lọc phân trang dữ liệu lớn với LIMIT và OFFSET",
+    "skill": "filtering",
+    "difficulty": "Hard",
+    "tags": [
+      "SQL",
+      "Pagination",
+      "LIMIT",
+      "OFFSET"
+    ],
+    "description": "Khi xây dựng API hoặc ứng dụng tra cứu, phân trang là kỹ thuật bắt buộc để tối ưu hiệu năng. Hãy viết câu lệnh SQL lấy dữ liệu cho trang số 2 (Page 2), mỗi trang gồm 3 bản ghi (`LIMIT 3 OFFSET 3`).",
+    "starterCode": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE logs (log_id INT, message TEXT)')\nconn.executemany('INSERT INTO logs VALUES (?, ?)', [(i, f'Log entry #{i}') for i in range(1, 11)])\n\nquery = \"SELECT * FROM logs ORDER BY log_id ASC LIMIT 3 OFFSET 3;\"\nprint(pd.read_sql_query(query, conn))\n",
+    "solution": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE logs (log_id INT, message TEXT)')\nconn.executemany('INSERT INTO logs VALUES (?, ?)', [(i, f'Log entry #{i}') for i in range(1, 11)])\nquery = 'SELECT * FROM logs ORDER BY log_id ASC LIMIT 3 OFFSET 3;'\nprint(pd.read_sql_query(query, conn))",
+    "expectedOutput": "   log_id        message\n0       4  Log entry #4\n1       5  Log entry #5\n2       6  Log entry #6",
+    "xpReward": 100
+  },
+  {
+    "id": "sql2-1",
+    "nodeId": "sql2",
+    "moduleName": "SQL Aggregation & Joins",
+    "title": "Nối bảng Customers và Orders tính tổng chi tiêu",
+    "skill": "merge",
+    "difficulty": "Easy",
+    "tags": [
+      "SQL",
+      "INNER JOIN",
+      "GROUP BY"
+    ],
+    "description": "Thực hiện `INNER JOIN` giữa bảng `customers` và bảng `orders` để tính tổng tiền mua sắm của từng khách hàng.",
+    "starterCode": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (id INT, name TEXT)')\nconn.execute('CREATE TABLE orders (cust_id INT, amount INT)')\nconn.executemany('INSERT INTO customers VALUES (?, ?)', [(1, 'Lan'), (2, 'Minh')])\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [(1, 500), (1, 300), (2, 700)])\n\nquery = \"\"\"\nSELECT c.name, SUM(o.amount) AS total_spend\nFROM customers c\nJOIN orders o ON c.id = o.cust_id\nGROUP BY c.name\nORDER BY total_spend DESC;\n\"\"\"\nprint(pd.read_sql_query(query, conn))\n",
+    "solution": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (id INT, name TEXT)')\nconn.execute('CREATE TABLE orders (cust_id INT, amount INT)')\nconn.executemany('INSERT INTO customers VALUES (?, ?)', [(1, 'Lan'), (2, 'Minh')])\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [(1, 500), (1, 300), (2, 700)])\nquery = 'SELECT c.name, SUM(o.amount) AS total_spend FROM customers c JOIN orders o ON c.id = o.cust_id GROUP BY c.name ORDER BY total_spend DESC;'\nprint(pd.read_sql_query(query, conn))",
+    "expectedOutput": "   name  total_spend\n0   Lan          800\n1  Minh          700",
+    "xpReward": 50
+  },
+  {
+    "id": "sql2-2",
+    "nodeId": "sql2",
+    "moduleName": "SQL Aggregation & Joins",
+    "title": "Tìm Top 3 sản phẩm bán chạy mỗi tháng bằng JOIN",
+    "skill": "groupby",
+    "difficulty": "Medium",
+    "tags": [
+      "SQL",
+      "LEFT JOIN",
+      "HAVING"
+    ],
+    "description": "Viết câu truy vấn tìm các nhóm ngành hàng có tổng doanh thu vượt trên 1,000,000 bằng mệnh đề `HAVING SUM(amount) > 1000000`.",
+    "starterCode": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE sales (cat TEXT, amount INT)')\nconn.executemany('INSERT INTO sales VALUES (?, ?)', [\n    ('Tech', 800000), ('Tech', 600000),\n    ('Book', 200000), ('Book', 150000),\n    ('Food', 900000), ('Food', 400000)\n])\n\nquery = \"\"\"\nSELECT cat, SUM(amount) AS total\nFROM sales\nGROUP BY cat\nHAVING SUM(amount) > 1000000\nORDER BY total DESC;\n\"\"\"\nprint(pd.read_sql_query(query, conn))\n",
+    "solution": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE sales (cat TEXT, amount INT)')\nconn.executemany('INSERT INTO sales VALUES (?, ?)', [('Tech', 800000), ('Tech', 600000), ('Book', 200000), ('Book', 150000), ('Food', 900000), ('Food', 400000)])\nquery = 'SELECT cat, SUM(amount) AS total FROM sales GROUP BY cat HAVING SUM(amount) > 1000000 ORDER BY total DESC;'\nprint(pd.read_sql_query(query, conn))",
+    "expectedOutput": "    cat    total\n0  Tech  1400000\n1  Food  1300000",
+    "xpReward": 75
+  },
+  {
+    "id": "sql2-3",
+    "nodeId": "sql2",
+    "moduleName": "SQL Aggregation & Joins",
+    "title": "Phân tích tỉ lệ duy trì khách hàng với Self-Join",
+    "skill": "merge",
+    "difficulty": "Hard",
+    "tags": [
+      "SQL",
+      "Self Join",
+      "Cohort",
+      "Retention"
+    ],
+    "description": "Sử dụng kỹ thuật Self-Join để tìm các khách hàng có đơn hàng lặp lại (mua hàng ở cả tháng 1 và tháng 2).",
+    "starterCode": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE user_activity (user_id INT, month INT)')\nconn.executemany('INSERT INTO user_activity VALUES (?, ?)', [\n    (1, 1), (1, 2), (2, 1), (3, 2), (4, 1), (4, 2)\n])\n\nquery = \"\"\"\nSELECT DISTINCT a.user_id\nFROM user_activity a\nJOIN user_activity b ON a.user_id = b.user_id\nWHERE a.month = 1 AND b.month = 2\nORDER BY a.user_id;\n\"\"\"\nprint(pd.read_sql_query(query, conn))\n",
+    "solution": "import sqlite3, pandas as pd\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE user_activity (user_id INT, month INT)')\nconn.executemany('INSERT INTO user_activity VALUES (?, ?)', [(1, 1), (1, 2), (2, 1), (3, 2), (4, 1), (4, 2)])\nquery = 'SELECT DISTINCT a.user_id FROM user_activity a JOIN user_activity b ON a.user_id = b.user_id WHERE a.month = 1 AND b.month = 2 ORDER BY a.user_id;'\nprint(pd.read_sql_query(query, conn))",
+    "expectedOutput": "   user_id\n0        1\n1        4",
+    "xpReward": 100
+  },
+  {
+    "id": "eda-1",
+    "nodeId": "eda",
+    "moduleName": "Exploratory Data Analysis",
+    "title": "Kiểm tra phân phối và bảng tóm tắt describe()",
+    "skill": "statistics",
+    "difficulty": "Easy",
+    "tags": [
+      "EDA",
+      "Describe",
+      "Summary Statistics"
+    ],
+    "description": "Trích xuất 5 chỉ số tóm tắt (Mean, Std, Min, 50%/Median, Max) của cột tuổi thọ khách hàng để nhận định nhanh hình dáng phân phối.",
+    "starterCode": "import pandas as pd\n\nages = pd.Series([22, 25, 29, 31, 35, 40, 48, 55])\nsummary = ages.describe()[['mean', 'std', 'min', '50%', 'max']].round(1)\nprint(\"Age Distribution Summary:\")\nprint(summary)\n",
+    "solution": "import pandas as pd\nages = pd.Series([22, 25, 29, 31, 35, 40, 48, 55])\nsummary = ages.describe()[['mean', 'std', 'min', '50%', 'max']].round(1)\nprint('Age Distribution Summary:')\nprint(summary)",
+    "expectedOutput": "Age Distribution Summary:\nmean    35.6\nstd     11.0\nmin     22.0\n50%     33.0\nmax     55.0\ndtype: float64",
+    "xpReward": 50
+  },
+  {
+    "id": "eda-2",
+    "nodeId": "eda",
+    "moduleName": "Exploratory Data Analysis",
+    "title": "Tính ma trận tương quan Pearson & Spearman",
+    "skill": "statistics",
+    "difficulty": "Medium",
+    "tags": [
+      "EDA",
+      "Correlation Matrix",
+      "Pearson"
+    ],
+    "description": "Tính toán hệ số tương quan Pearson giữa `chi tiêu quảng cáo (AdSpend)` và `doanh thu (Revenue)` để đánh giá mức độ tương quan tuyến tính.",
+    "starterCode": "import pandas as pd\n\ndf = pd.DataFrame({\n    'AdSpend': [10, 20, 30, 40, 50],\n    'Revenue': [55, 95, 160, 210, 260]\n})\n\ncorr_val = df['AdSpend'].corr(df['Revenue'])\nprint(f\"Pearson Correlation: {round(corr_val, 3)}\")\n",
+    "solution": "import pandas as pd\ndf = pd.DataFrame({'AdSpend': [10, 20, 30, 40, 50], 'Revenue': [55, 95, 160, 210, 260]})\ncorr_val = df['AdSpend'].corr(df['Revenue'])\nprint(f'Pearson Correlation: {round(corr_val, 3)}')",
+    "expectedOutput": "Pearson Correlation: 0.999",
+    "xpReward": 75
+  },
+  {
+    "id": "eda-3",
+    "nodeId": "eda",
+    "moduleName": "Exploratory Data Analysis",
+    "title": "Phát hiện Pattern bất thường trong hành vi người dùng",
+    "skill": "outliers",
+    "difficulty": "Hard",
+    "tags": [
+      "EDA",
+      "Anomaly Detection",
+      "Behavioral Analysis"
+    ],
+    "description": "Lọc các tài khoản có số lượng request bất thường trong 1 giờ (> 3 lần độ lệch chuẩn so với trung bình hệ thống) để gắn cờ bot/gian lận.",
+    "starterCode": "import pandas as pd\n\nreqs = pd.Series([12, 15, 14, 18, 16, 150, 14, 13])\nmean = reqs.mean()\nstd = reqs.std()\n\noutliers = reqs[reqs > mean + 2 * std]\nprint(\"Detected Abnormal Activity:\", outliers.tolist())\n",
+    "solution": "import pandas as pd\nreqs = pd.Series([12, 15, 14, 18, 16, 150, 14, 13])\nmean, std = reqs.mean(), reqs.std()\noutliers = reqs[reqs > mean + 2 * std]\nprint('Detected Abnormal Activity:', outliers.tolist())",
+    "expectedOutput": "Detected Abnormal Activity: [150]",
+    "xpReward": 100
+  },
+  {
+    "id": "stat-1",
+    "nodeId": "stat",
+    "moduleName": "Statistics",
+    "title": "Tính Mean, Median, Mode và Độ lệch chuẩn",
+    "skill": "statistics",
+    "difficulty": "Easy",
+    "tags": [
+      "Statistics",
+      "Central Tendency",
+      "Dispersion"
+    ],
+    "description": "Cho mẫu thời gian giao hàng (phút): `[25, 30, 30, 35, 40, 45, 60]`. Hãy tính Mean và Median.",
+    "starterCode": "import numpy as np\n\ndelivery_times = [25, 30, 30, 35, 40, 45, 60]\nmean_val = np.mean(delivery_times)\nmedian_val = np.median(delivery_times)\n\nprint(f\"Mean: {round(mean_val, 2)}, Median: {median_val}\")\n",
+    "solution": "import numpy as np\ndelivery_times = [25, 30, 30, 35, 40, 45, 60]\nprint(f'Mean: {round(np.mean(delivery_times), 2)}, Median: {np.median(delivery_times)}')",
+    "expectedOutput": "Mean: 37.86, Median: 35.0",
+    "xpReward": 50
+  },
+  {
+    "id": "ex5",
+    "nodeId": "stat",
+    "moduleName": "Statistics",
+    "title": "Phân tích phân phối và kiểm định Z-Score",
+    "skill": "statistics",
+    "difficulty": "Medium",
+    "tags": [
+      "Statistics",
+      "Z-Score",
+      "Normal Distribution"
+    ],
+    "description": "Chuẩn hóa cột giá trị giao dịch sang Z-Score: `Z = (X - mu) / sigma`. Điểm có Z-Score tuyệt đối > 2.5 được coi là điểm dị biệt.",
+    "starterCode": "import pandas as pd\n\ns = pd.Series([100, 105, 98, 102, 110, 350, 95])\nz_scores = (s - s.mean()) / s.std()\noutliers = s[z_scores.abs() > 2.0]\n\nprint(\"Outlier values:\", outliers.tolist())\n",
+    "solution": "import pandas as pd\ns = pd.Series([100, 105, 98, 102, 110, 350, 95])\nz_scores = (s - s.mean()) / s.std()\nprint('Outlier values:', s[z_scores.abs() > 2.0].tolist())",
+    "expectedOutput": "Outlier values: [350]",
+    "xpReward": 75
+  },
+  {
+    "id": "stat-3",
+    "nodeId": "stat",
+    "moduleName": "Statistics",
+    "title": "A/B Testing: Tính P-Value và khoảng tin cậy 95%",
+    "skill": "statistics",
+    "difficulty": "Hard",
+    "tags": [
+      "Statistics",
+      "Hypothesis Testing",
+      "A/B Testing"
+    ],
+    "description": "So sánh tỉ lệ chuyển đổi giữa nhóm Control A và Variant B trong chiến dịch A/B testing để kết luận kết quả có ý nghĩa thống kê hay không.",
+    "starterCode": "conv_a = 0.12\nconv_b = 0.16\nuplift = (conv_b - conv_a) / conv_a * 100\np_value = 0.018 # Giả định kết quả từ Chi-squared test\n\nprint(f\"Relative Uplift: +{round(uplift, 1)}%\")\nprint(f\"P-Value: {p_value} -> Statistically Significant (p < 0.05)\")\n",
+    "solution": "conv_a, conv_b, p_value = 0.12, 0.16, 0.018\nprint(f'Relative Uplift: +{round((conv_b - conv_a)/conv_a * 100, 1)}%')\nprint(f'P-Value: {p_value} -> Statistically Significant (p < 0.05)')",
+    "expectedOutput": "Relative Uplift: +33.3%\nP-Value: 0.018 -> Statistically Significant (p < 0.05)",
+    "xpReward": 100
+  },
+  {
+    "id": "viz-1",
+    "nodeId": "viz",
+    "moduleName": "Data Visualization",
+    "title": "Vẽ biểu đồ Bar Chart so sánh doanh thu các kênh",
+    "skill": "outliers",
+    "difficulty": "Easy",
+    "tags": [
+      "Visualization",
+      "Matplotlib",
+      "Bar Chart"
+    ],
+    "description": "Chuẩn bị dữ liệu tổng hợp để vẽ biểu đồ thanh ngang so sánh doanh thu giữa các kênh bán hàng (Shopee, Lazada, TikTok Shop, Website).",
+    "starterCode": "channels = ['Shopee', 'TikTok Shop', 'Lazada', 'Website']\nrev = [450, 380, 210, 190]\n\nfor ch, r in sorted(zip(channels, rev), key=lambda x: x[1], reverse=True):\n    print(f\"{ch:12}: {'█' * (r // 30)} ({r}M)\")\n",
+    "solution": "channels = ['Shopee', 'TikTok Shop', 'Lazada', 'Website']\nrev = [450, 380, 210, 190]\nfor ch, r in sorted(zip(channels, rev), key=lambda x: x[1], reverse=True):\n    print(f\"{ch:12}: {'█' * (r // 30)} ({r}M)\")",
+    "expectedOutput": "Shopee      : ███████████████ (450M)\nTikTok Shop : ████████████ (380M)\nLazada      : ███████ (210M)\nWebsite     : ██████ (190M)",
+    "xpReward": 50
+  },
+  {
+    "id": "ex6",
+    "nodeId": "viz",
+    "moduleName": "Data Visualization",
+    "title": "Phát hiện ngoại lệ (Outliers) bằng Boxplot và IQR",
+    "skill": "outliers",
+    "difficulty": "Medium",
+    "tags": [
+      "Visualization",
+      "IQR",
+      "Boxplot",
+      "Outliers"
+    ],
+    "description": "Sử dụng quy tắc IQR (Interquartile Range) để tính ngưỡng ranh giới trên `Q3 + 1.5 * IQR` và lọc các giá trị vượt ngưỡng.",
+    "starterCode": "import pandas as pd\n\ns = pd.Series([10, 12, 14, 15, 16, 18, 20, 22, 65])\nq1 = s.quantile(0.25)\nq3 = s.quantile(0.75)\niqr = q3 - q1\nupper_fence = q3 + 1.5 * iqr\n\noutliers = s[s > upper_fence]\nprint(\"IQR Upper Fence:\", upper_fence)\nprint(\"Detected Outliers:\", outliers.tolist())\n",
+    "solution": "import pandas as pd\ns = pd.Series([10, 12, 14, 15, 16, 18, 20, 22, 65])\nq1, q3 = s.quantile(0.25), s.quantile(0.75)\nupper_fence = q3 + 1.5 * (q3 - q1)\nprint('IQR Upper Fence:', upper_fence)\nprint('Detected Outliers:', s[s > upper_fence].tolist())",
+    "expectedOutput": "IQR Upper Fence: 32.0\nDetected Outliers: [65]",
+    "xpReward": 75
+  },
+  {
+    "id": "viz-3",
+    "nodeId": "viz",
+    "moduleName": "Data Visualization",
+    "title": "Xây dựng Dashboard trực quan hóa đa biểu đồ Subplots",
+    "skill": "outliers",
+    "difficulty": "Hard",
+    "tags": [
+      "Visualization",
+      "Subplots",
+      "Dashboard"
+    ],
+    "description": "Tạo lưới đồ thị đa chiều 2x2 gồm Trend line, Bar chart, Scatter plot và Distribution histogram.",
+    "starterCode": "metrics = {\n    'Quarter': ['Q1', 'Q2', 'Q3', 'Q4'],\n    'CAC': [15, 14, 12, 10],\n    'LTV': [45, 50, 58, 65]\n}\n\nltv_cac_ratio = [l / c for l, c in zip(metrics['LTV'], metrics['CAC'])]\nprint(\"LTV / CAC Ratio by Quarter:\")\nfor q, ratio in zip(metrics['Quarter'], ltv_cac_ratio):\n    print(f\"{q}: {round(ratio, 2)}x\")\n",
+    "solution": "metrics = {'Quarter': ['Q1', 'Q2', 'Q3', 'Q4'], 'CAC': [15, 14, 12, 10], 'LTV': [45, 50, 58, 65]}\nprint('LTV / CAC Ratio by Quarter:')\nfor q, ratio in zip(metrics['Quarter'], [l/c for l, c in zip(metrics['LTV'], metrics['CAC'])]):\n    print(f'{q}: {round(ratio, 2)}x')",
+    "expectedOutput": "LTV / CAC Ratio by Quarter:\nQ1: 3.0x\nQ2: 3.57x\nQ3: 4.83x\nQ4: 6.5x",
+    "xpReward": 100
+  },
+  {
+    "id": "bm-1",
+    "nodeId": "bm",
+    "moduleName": "Business Metrics",
+    "title": "Tính toán tỉ lệ chuyển đổi Conversion Rate & AOV",
+    "skill": "filtering",
+    "difficulty": "Easy",
+    "tags": [
+      "Business",
+      "KPIs",
+      "Conversion Rate",
+      "AOV"
+    ],
+    "description": "Tính 2 chỉ số cốt lõi trong E-commerce:\n1. Conversion Rate (CR) = `(Orders / Visitors) * 100`\n2. Average Order Value (AOV) = `Total Revenue / Orders`",
+    "starterCode": "visitors = 50000\norders = 1750\ntotal_revenue = 875000000\n\ncr = (orders / visitors) * 100\naov = total_revenue / orders\n\nprint(f\"Conversion Rate: {cr:.2f}%\")\nprint(f\"Average Order Value: {int(aov):,} VNĐ\")\n",
+    "solution": "visitors, orders, total_revenue = 50000, 1750, 875000000\nprint(f'Conversion Rate: {(orders / visitors) * 100:.2f}%')\nprint(f'Average Order Value: {int(total_revenue / orders):,} VNĐ')",
+    "expectedOutput": "Conversion Rate: 3.50%\nAverage Order Value: 500,000 VNĐ",
+    "xpReward": 50
+  },
+  {
+    "id": "bm-2",
+    "nodeId": "bm",
+    "moduleName": "Business Metrics",
+    "title": "Xây dựng bảng phân tích Cohort Retention theo tháng",
+    "skill": "groupby",
+    "difficulty": "Medium",
+    "tags": [
+      "Business",
+      "Cohort Analysis",
+      "Retention Rate"
+    ],
+    "description": "Tính tỉ lệ giữ chân khách hàng (Retention Rate %) qua các tháng M0, M1, M2 của Cohort tháng 1.",
+    "starterCode": "cohort_sizes = 1000\nactive_users = [1000, 420, 310]\n\nretention_rates = [(u / cohort_sizes) * 100 for u in active_users]\nprint(\"Cohort Retention Rates:\")\nfor m, r in enumerate(retention_rates):\n    print(f\"Month {m}: {r:.1f}%\")\n",
+    "solution": "cohort_sizes, active_users = 1000, [1000, 420, 310]\nprint('Cohort Retention Rates:')\nfor m, r in enumerate([(u / cohort_sizes) * 100 for u in active_users]):\n    print(f'Month {m}: {r:.1f}%')",
+    "expectedOutput": "Cohort Retention Rates:\nMonth 0: 100.0%\nMonth 1: 42.0%\nMonth 2: 31.0%",
+    "xpReward": 75
+  },
+  {
+    "id": "bm-3",
+    "nodeId": "bm",
+    "moduleName": "Business Metrics",
+    "title": "Mô hình dự báo Customer Lifetime Value (LTV) theo nhóm",
+    "skill": "statistics",
+    "difficulty": "Hard",
+    "tags": [
+      "Business",
+      "LTV Modeling",
+      "Churn Rate"
+    ],
+    "description": "Công thức tính LTV đơn giản: `LTV = (ARPU * Gross Margin) / Churn Rate`. Dự báo LTV cho phân khúc khách hàng B2B và B2C.",
+    "starterCode": "arpu = 250000 # Doanh thu trung bình/user/tháng\nmargin = 0.65  # Tỉ suất lợi nhuận gộp\nchurn = 0.05   # Tỉ lệ rời bỏ 5%/tháng\n\nltv = (arpu * margin) / churn\nprint(f\"Estimated Customer LTV: {int(ltv):,} VNĐ\")\n",
+    "solution": "arpu, margin, churn = 250000, 0.65, 0.05\nprint(f'Estimated Customer LTV: {int((arpu * margin) / churn):,} VNĐ')",
+    "expectedOutput": "Estimated Customer LTV: 3,250,000 VNĐ",
+    "xpReward": 100
+  },
+  {
+    "id": "story-1",
+    "nodeId": "story",
+    "moduleName": "Data Storytelling",
+    "title": "Tóm tắt 3 Key Insights từ biểu đồ tăng trưởng",
+    "skill": "filtering",
+    "difficulty": "Easy",
+    "tags": [
+      "Storytelling",
+      "Insights",
+      "Executive Briefing"
+    ],
+    "description": "Chuyển đổi bảng dữ liệu thô thành 3 luận điểm cốt lõi (Actionable Insights) có số liệu minh chứng cụ thể cho ban giám đốc.",
+    "starterCode": "insights = [\n    \"1. Kênh TikTok Shop tăng trưởng +120% MoM, trở thành động lực chính quý 3.\",\n    \"2. Tỉ lệ hoàn đơn ngành Thời trang ở mức 14%, cao gấp đôi ngưỡng tiêu chuẩn 7%.\",\n    \"3. Khách hàng thân thiết (VIP) đóng góp 54% tổng doanh thu dù chỉ chiếm 8% số lượng.\"\n]\n\nprint(\"=== EXECUTIVE SUMMARY INSIGHTS ===\")\nfor item in insights:\n    print(item)\n",
+    "solution": "insights = ['1. Kênh TikTok Shop tăng trưởng +120% MoM, trở thành động lực chính quý 3.', '2. Tỉ lệ hoàn đơn ngành Thời trang ở mức 14%, cao gấp đôi ngưỡng tiêu chuẩn 7%.', '3. Khách hàng thân thiết (VIP) đóng góp 54% tổng doanh thu dù chỉ chiếm 8% số lượng.']\nprint('=== EXECUTIVE SUMMARY INSIGHTS ===')\nfor item in insights: print(item)",
+    "expectedOutput": "=== EXECUTIVE SUMMARY INSIGHTS ===\n1. Kênh TikTok Shop tăng trưởng +120% MoM, trở thành động lực chính quý 3.\n2. Tỉ lệ hoàn đơn ngành Thời trang ở mức 14%, cao gấp đôi ngưỡng tiêu chuẩn 7%.\n3. Khách hàng thân thiết (VIP) đóng góp 54% tổng doanh thu dù chỉ chiếm 8% số lượng.",
+    "xpReward": 50
+  },
+  {
+    "id": "story-2",
+    "nodeId": "story",
+    "moduleName": "Data Storytelling",
+    "title": "Soạn thảo Executive Summary báo cáo doanh thu quý",
+    "skill": "filtering",
+    "difficulty": "Medium",
+    "tags": [
+      "Storytelling",
+      "Business Writing",
+      "Quarterly Report"
+    ],
+    "description": "Viết đoạn tóm tắt cấu trúc SCQA (Situation - Complication - Question - Answer) cho cuộc họp cổ đông quý.",
+    "starterCode": "report = {\n    'Target': '10.0B',\n    'Achieved': '10.8B',\n    'Achievement_Rate': '108%',\n    'Key_Driver': 'Bùng nổ chiến dịch Megasale tháng 9'\n}\n\nprint(f\"Q3 Performance: Đạt {report['Achieved']} ({report['Achievement_Rate']} KPI) nhờ {report['Key_Driver']}.\")\n",
+    "solution": "report = {'Target': '10.0B', 'Achieved': '10.8B', 'Achievement_Rate': '108%', 'Key_Driver': 'Bùng nổ chiến dịch Megasale tháng 9'}\nprint(f\"Q3 Performance: Đạt {report['Achieved']} ({report['Achievement_Rate']} KPI) nhờ {report['Key_Driver']}.\")",
+    "expectedOutput": "Q3 Performance: Đạt 10.8B (108% KPI) nhờ Bùng nổ chiến dịch Megasale tháng 9.",
+    "xpReward": 75
+  },
+  {
+    "id": "story-3",
+    "nodeId": "story",
+    "moduleName": "Data Storytelling",
+    "title": "Xây dựng bài thuyết trình đề xuất tối ưu chi phí vận hành",
+    "skill": "statistics",
+    "difficulty": "Hard",
+    "tags": [
+      "Storytelling",
+      "Decision Making",
+      "Cost Optimization"
+    ],
+    "description": "Xây dựng ma trận chi phí - lợi ích (Cost-Benefit Analysis) nhằm bảo vệ phương án tự động hóa kho hàng với CFO.",
+    "starterCode": "current_cost = 1200000000 # 1.2 tỷ/năm\nauto_cost = 450000000      # 450 triệu/năm\nsavings = current_cost - auto_cost\nroi = (savings / 800000000) * 100 # Vốn đầu tư 800tr\n\nprint(f\"Tiết kiệm hàng năm: {savings:,} VNĐ\")\nprint(f\"ROI năm đầu tiên: {roi:.1f}%\")\n",
+    "solution": "current_cost, auto_cost = 1200000000, 450000000\nsavings = current_cost - auto_cost\nroi = (savings / 800000000) * 100\nprint(f'Tiết kiệm hàng năm: {savings:,} VNĐ')\nprint(f'ROI năm đầu tiên: {roi:.1f}%')",
+    "expectedOutput": "Tiết kiệm hàng năm: 750,000,000 VNĐ\nROI năm đầu tiên: 93.8%",
+    "xpReward": 100
+  },
+  {
+    "id": "proj-1",
+    "nodeId": "proj",
+    "moduleName": "Final DA Project",
+    "title": "Thiết lập cấu trúc thư mục và tài liệu README dự án",
+    "skill": "filtering",
+    "difficulty": "Easy",
+    "tags": [
+      "Project",
+      "Architecture",
+      "Best Practices"
+    ],
+    "description": "Một dự án Data tiêu chuẩn cần có cấu trúc: `data/`, `notebooks/`, `src/`, `reports/` và `README.md`.",
+    "starterCode": "folders = ['data/raw', 'data/processed', 'notebooks', 'src', 'reports/figures']\nfor f in folders:\n    print(f\"[DIR CREATED]: {f}\")\nprint(\"Project repository structure initialized successfully!\")\n",
+    "solution": "folders = ['data/raw', 'data/processed', 'notebooks', 'src', 'reports/figures']\nfor f in folders: print(f\"[DIR CREATED]: {f}\")\nprint('Project repository structure initialized successfully!')",
+    "expectedOutput": "[DIR CREATED]: data/raw\n[DIR CREATED]: data/processed\n[DIR CREATED]: notebooks\n[DIR CREATED]: src\n[DIR CREATED]: reports/figures\nProject repository structure initialized successfully!",
+    "xpReward": 50
+  },
+  {
+    "id": "proj-2",
+    "nodeId": "proj",
+    "moduleName": "Final DA Project",
+    "title": "Pipeline làm sạch và tổng hợp bộ dữ liệu 100K dòng",
+    "skill": "merge",
+    "difficulty": "Medium",
+    "tags": [
+      "Project",
+      "ETL Pipeline",
+      "Data Engineering"
+    ],
+    "description": "Viết pipeline hàm `run_etl(df)` gồm: xóa duplicate, fill missing value, tính thêm cột `net_value`, trả về dataset sạch.",
+    "starterCode": "import pandas as pd\n\ndef run_etl_pipeline(raw_df):\n    df = raw_df.drop_duplicates().copy()\n    df['amount'] = df['amount'].fillna(0)\n    df['net_value'] = df['amount'] * 0.9\n    return df\n\ntest_df = pd.DataFrame({'id': [1, 2, 2], 'amount': [100, None, 200]})\nclean = run_etl_pipeline(test_df)\nprint(\"Processed rows:\", len(clean))\nprint(clean)\n",
+    "solution": "import pandas as pd\ndef run_etl_pipeline(raw_df):\n    df = raw_df.drop_duplicates().copy()\n    df['amount'] = df['amount'].fillna(0)\n    df['net_value'] = df['amount'] * 0.9\n    return df\nclean = run_etl_pipeline(pd.DataFrame({'id': [1, 2, 2], 'amount': [100, None, 200]}))\nprint('Processed rows:', len(clean))\nprint(clean)",
+    "expectedOutput": "Processed rows: 2\n   id  amount  net_value\n0   1   100.0       90.0\n1   2     0.0        0.0",
+    "xpReward": 75
+  },
+  {
+    "id": "proj-3",
+    "nodeId": "proj",
+    "moduleName": "Final DA Project",
+    "title": "Báo cáo phân tích chuyên sâu kèm bộ biểu đồ trực quan",
+    "skill": "statistics",
+    "difficulty": "Hard",
+    "tags": [
+      "Project",
+      "Capstone",
+      "Comprehensive Report"
+    ],
+    "description": "Tổng hợp kết quả cuối cùng của dự án Capstone với đầy đủ các chỉ số: Total Volume, Churn Rate, Projected Revenue Growth.",
+    "starterCode": "capstone_summary = {\n    'Project_Name': 'E-Commerce Churn & Revenue Optimization',\n    'Dataset_Size': '125,000 records',\n    'Model_Accuracy': '89.4%',\n    'Business_Impact': '+1.2B VNĐ Projected Savings'\n}\n\nfor k, v in capstone_summary.items():\n    print(f\"{k.replace('_', ' ')}: {v}\")\n",
+    "solution": "capstone_summary = {'Project_Name': 'E-Commerce Churn & Revenue Optimization', 'Dataset_Size': '125,000 records', 'Model_Accuracy': '89.4%', 'Business_Impact': '+1.2B VNĐ Projected Savings'}\nfor k, v in capstone_summary.items(): print(f\"{k.replace('_', ' ')}: {v}\")",
+    "expectedOutput": "Project Name: E-Commerce Churn & Revenue Optimization\nDataset Size: 125,000 records\nModel Accuracy: 89.4%\nBusiness Impact: +1.2B VNĐ Projected Savings",
+    "xpReward": 100
+  },
+  {
+    "id": "port-1",
+    "nodeId": "port",
+    "moduleName": "Portfolio",
+    "title": "Viết Case Study tóm tắt dự án nổi bật nhất",
+    "skill": "filtering",
+    "difficulty": "Easy",
+    "tags": [
+      "Portfolio",
+      "Case Study",
+      "STAR Method"
+    ],
+    "description": "Cấu trúc một Case Study gây ấn tượng theo mô hình STAR (Situation - Task - Action - Result).",
+    "starterCode": "star_model = {\n    'Situation': 'Doanh nghiệp mất 12% khách hàng trung thành mỗi quý.',\n    'Task': 'Xác định nguyên nhân gốc rễ và đề xuất giải pháp giảm churn.',\n    'Action': 'Phân tích dữ liệu 50K đơn hàng bằng Python/Pandas, tìm ra điểm gãy giao vận.',\n    'Result': 'Giảm churn từ 12% xuống 6.5%, bảo vệ 800M doanh thu.'\n}\n\nfor stage, content in star_model.items():\n    print(f\"[{stage.upper()}]: {content}\")\n",
+    "solution": "star_model = {'Situation': 'Doanh nghiệp mất 12% khách hàng trung thành mỗi quý.', 'Task': 'Xác định nguyên nhân gốc rễ và đề xuất giải pháp giảm churn.', 'Action': 'Phân tích dữ liệu 50K đơn hàng bằng Python/Pandas, tìm ra điểm gãy giao vận.', 'Result': 'Giảm churn từ 12% xuống 6.5%, bảo vệ 800M doanh thu.'}\nfor stage, content in star_model.items(): print(f\"[{stage.upper()}]: {content}\")",
+    "expectedOutput": "[SITUATION]: Doanh nghiệp mất 12% khách hàng trung thành mỗi quý.\n[TASK]: Xác định nguyên nhân gốc rễ và đề xuất giải pháp giảm churn.\n[ACTION]: Phân tích dữ liệu 50K đơn hàng bằng Python/Pandas, tìm ra điểm gãy giao vận.\n[RESULT]: Giảm churn từ 12% xuống 6.5%, bảo vệ 800M doanh thu.",
+    "xpReward": 50
+  },
+  {
+    "id": "port-2",
+    "nodeId": "port",
+    "moduleName": "Portfolio",
+    "title": "Đóng gói mã nguồn và file hướng dẫn tái hiện (Reproducibility)",
+    "skill": "filtering",
+    "difficulty": "Medium",
+    "tags": [
+      "Portfolio",
+      "Reproducibility",
+      "requirements.txt"
+    ],
+    "description": "Tạo danh sách các thư viện cần thiết và lệnh cài đặt môi trường ảo `requirements.txt` chuẩn cho nhà tuyển dụng chạy thử code của bạn.",
+    "starterCode": "packages = ['pandas>=2.0.0', 'numpy>=1.24.0', 'matplotlib>=3.7.0', 'seaborn>=0.12.0']\nprint(\"# requirements.txt generated\")\nfor pkg in packages:\n    print(pkg)\n",
+    "solution": "packages = ['pandas>=2.0.0', 'numpy>=1.24.0', 'matplotlib>=3.7.0', 'seaborn>=0.12.0']\nprint('# requirements.txt generated')\nfor pkg in packages: print(pkg)",
+    "expectedOutput": "# requirements.txt generated\npandas>=2.0.0\nnumpy>=1.24.0\nmatplotlib>=3.7.0\nseaborn>=0.12.0",
+    "xpReward": 75
+  },
+  {
+    "id": "port-3",
+    "nodeId": "port",
+    "moduleName": "Portfolio",
+    "title": "Tạo trang web Portfolio cá nhân trên GitHub Pages",
+    "skill": "statistics",
+    "difficulty": "Hard",
+    "tags": [
+      "Portfolio",
+      "GitHub Pages",
+      "Personal Branding"
+    ],
+    "description": "Khởi tạo file cấu hình siêu dữ liệu `_config.yml` cho Jekyll/GitHub Pages nhằm tối ưu SEO cá nhân của một Data Analyst chuyên nghiệp.",
+    "starterCode": "portfolio_cfg = {\n    'title': 'Nguyen Minh Khoa - Data Analyst Portfolio',\n    'theme': 'minimal-data-theme',\n    'github_username': 'minhkhoa-data',\n    'live_projects_count': 5\n}\n\nprint(\"=== PORTFOLIO SITE CONFIG READY ===\")\nfor k, v in portfolio_cfg.items():\n    print(f\"{k}: {v}\")\n",
+    "solution": "portfolio_cfg = {'title': 'Nguyen Minh Khoa - Data Analyst Portfolio', 'theme': 'minimal-data-theme', 'github_username': 'minhkhoa-data', 'live_projects_count': 5}\nprint('=== PORTFOLIO SITE CONFIG READY ===')\nfor k, v in portfolio_cfg.items(): print(f'{k}: {v}')",
+    "expectedOutput": "=== PORTFOLIO SITE CONFIG READY ===\ntitle: Nguyen Minh Khoa - Data Analyst Portfolio\ntheme: minimal-data-theme\ngithub_username: minhkhoa-data\nlive_projects_count: 5",
+    "xpReward": 100
+  }
 ];
 
-// ── Roadmap Nodes ──────────────────────────────
 export const ROADMAP_NODES = [
   { id: 'py', label: 'Python\nFundamentals', icon: '🐍', x: 200, y: 80, deps: [], skill: 'filtering', color: 'A' },
   { id: 'np', label: 'NumPy', icon: '🔢', x: 100, y: 220, deps: ['py'], skill: 'statistics', color: 'B' },
@@ -1034,6 +1448,8 @@ export const ROADMAP_NODES = [
   { id: 'port', label: 'Portfolio', icon: '🏆', x: 290, y: 1000, deps: ['proj'], skill: null, color: 'G' },
 ];
 
+
+// ── Node Descriptions ──────────────────────────
 export const NODE_DESCRIPTIONS = {
   py: { title: 'Python Fundamentals', desc: 'Nắm vững syntax Python, data types, loops, functions và OOP cơ bản.' },
   np: { title: 'NumPy', desc: 'Array operations, mathematical functions, broadcasting và linear algebra cơ bản.' },
@@ -1051,7 +1467,138 @@ export const NODE_DESCRIPTIONS = {
   port: { title: 'Portfolio', desc: 'Xây dựng GitHub portfolio, viết case study và chuẩn bị CV Data Analyst.' },
 };
 
-// ── Challenges ─────────────────────────────────
+export const NODE_PRACTICE_PROBLEMS = {
+  py: [
+    { id: 'py-1', title: 'Khai báo biến và ép kiểu dữ liệu Python cơ bản', difficulty: 'Easy', labUrl: '#practice?ex=py-1' },
+    { id: 'py-2', title: 'Xử lý chuỗi và List Comprehension nâng cao', difficulty: 'Medium', labUrl: '#practice?ex=py-2' },
+    { id: 'py-3', title: 'Tối ưu hóa thuật toán với Generator & Lambda', difficulty: 'Hard', labUrl: '#practice?ex=py-3' },
+  ],
+  np: [
+    { id: 'np-1', title: 'Khởi tạo mảng NumPy và Reshape ma trận 2D', difficulty: 'Easy', labUrl: '#practice?ex=np-1' },
+    { id: 'np-2', title: 'Thao tác Broadcasting và Matrix Multiplication', difficulty: 'Medium', labUrl: '#practice?ex=np-2' },
+    { id: 'np-3', title: 'Tối ưu tính toán đại số tuyến tính với numpy.linalg', difficulty: 'Hard', labUrl: '#practice?ex=np-3' },
+  ],
+  pd: [
+    { id: 'ex1', title: 'Lọc dữ liệu với điều kiện phức hợp', difficulty: 'Easy', labUrl: '#practice?ex=ex1' },
+    { id: 'pd-2', title: 'Indexing đa tầng (MultiIndex) và Slicing nâng cao', difficulty: 'Medium', labUrl: '#practice?ex=pd-2' },
+    { id: 'pd-3', title: 'Xử lý dữ liệu chuỗi thời gian (TimeSeries Resampling)', difficulty: 'Hard', labUrl: '#practice?ex=pd-3' },
+  ],
+  dc: [
+    { id: 'ex2', title: 'Xử lý Missing Values đa dạng chiến lược', difficulty: 'Easy', labUrl: '#practice?ex=ex2' },
+    { id: 'dc-2', title: 'Chuẩn hóa chuỗi văn bản và định dạng ngày tháng', difficulty: 'Medium', labUrl: '#practice?ex=dc-2' },
+    { id: 'dc-3', title: 'Khử trùng lặp và làm sạch bộ dữ liệu đa nguồn', difficulty: 'Hard', labUrl: '#practice?ex=dc-3' },
+  ],
+  dt: [
+    { id: 'ex3', title: 'GroupBy và Tổng hợp doanh thu chi nhánh', difficulty: 'Easy', labUrl: '#practice?ex=ex3' },
+    { id: 'ex4', title: 'Merge và Nối bảng dữ liệu khách hàng', difficulty: 'Medium', labUrl: '#practice?ex=ex4' },
+    { id: 'dt-3', title: 'Window Functions và tính toán Running Total bằng Pandas', difficulty: 'Hard', labUrl: '#practice?ex=dt-3' },
+  ],
+  sql1: [
+    { id: 'sql1-1', title: 'Truy vấn danh sách đơn hàng có điều kiện lọc', difficulty: 'Easy', labUrl: '#practice?ex=sql1-1' },
+    { id: 'sql1-2', title: 'Tính toán giá trị đơn hàng với biểu thức CASE WHEN', difficulty: 'Medium', labUrl: '#practice?ex=sql1-2' },
+    { id: 'sql1-3', title: 'Lọc phân trang dữ liệu lớn với LIMIT và OFFSET', difficulty: 'Hard', labUrl: '#practice?ex=sql1-3' },
+  ],
+  sql2: [
+    { id: 'sql2-1', title: 'Nối bảng Customers và Orders tính tổng chi tiêu', difficulty: 'Easy', labUrl: '#practice?ex=sql2-1' },
+    { id: 'sql2-2', title: 'Tìm Top 3 sản phẩm bán chạy mỗi tháng bằng JOIN', difficulty: 'Medium', labUrl: '#practice?ex=sql2-2' },
+    { id: 'sql2-3', title: 'Phân tích tỉ lệ duy trì khách hàng với Self-Join', difficulty: 'Hard', labUrl: '#practice?ex=sql2-3' },
+  ],
+  eda: [
+    { id: 'eda-1', title: 'Kiểm tra phân phối và bảng tóm tắt describe()', difficulty: 'Easy', labUrl: '#practice?ex=eda-1' },
+    { id: 'eda-2', title: 'Tính ma trận tương quan Pearson & Spearman', difficulty: 'Medium', labUrl: '#practice?ex=eda-2' },
+    { id: 'eda-3', title: 'Phát hiện Pattern bất thường trong hành vi người dùng', difficulty: 'Hard', labUrl: '#practice?ex=eda-3' },
+  ],
+  stat: [
+    { id: 'stat-1', title: 'Tính Mean, Median, Mode và Độ lệch chuẩn', difficulty: 'Easy', labUrl: '#practice?ex=stat-1' },
+    { id: 'ex5', title: 'Phân tích phân phối và kiểm định Z-Score', difficulty: 'Medium', labUrl: '#practice?ex=ex5' },
+    { id: 'stat-3', title: 'A/B Testing: Tính P-Value và khoảng tin cậy 95%', difficulty: 'Hard', labUrl: '#practice?ex=stat-3' },
+  ],
+  viz: [
+    { id: 'viz-1', title: 'Vẽ biểu đồ Bar Chart so sánh doanh thu các kênh', difficulty: 'Easy', labUrl: '#practice?ex=viz-1' },
+    { id: 'ex6', title: 'Phát hiện ngoại lệ (Outliers) bằng Boxplot và IQR', difficulty: 'Medium', labUrl: '#practice?ex=ex6' },
+    { id: 'viz-3', title: 'Xây dựng Dashboard trực quan hóa đa biểu đồ Subplots', difficulty: 'Hard', labUrl: '#practice?ex=viz-3' },
+  ],
+  bm: [
+    { id: 'bm-1', title: 'Tính toán tỉ lệ chuyển đổi Conversion Rate & AOV', difficulty: 'Easy', labUrl: '#practice?ex=bm-1' },
+    { id: 'bm-2', title: 'Xây dựng bảng phân tích Cohort Retention theo tháng', difficulty: 'Medium', labUrl: '#practice?ex=bm-2' },
+    { id: 'bm-3', title: 'Mô hình dự báo Customer Lifetime Value (LTV) theo nhóm', difficulty: 'Hard', labUrl: '#practice?ex=bm-3' },
+  ],
+  story: [
+    { id: 'story-1', title: 'Tóm tắt 3 Key Insights từ biểu đồ tăng trưởng', difficulty: 'Easy', labUrl: '#practice?ex=story-1' },
+    { id: 'story-2', title: 'Soạn thảo Executive Summary báo cáo doanh thu quý', difficulty: 'Medium', labUrl: '#practice?ex=story-2' },
+    { id: 'story-3', title: 'Xây dựng bài thuyết trình đề xuất tối ưu chi phí vận hành', difficulty: 'Hard', labUrl: '#practice?ex=story-3' },
+  ],
+  proj: [
+    { id: 'proj-1', title: 'Thiết lập cấu trúc thư mục và tài liệu README dự án', difficulty: 'Easy', labUrl: '#practice?ex=proj-1' },
+    { id: 'proj-2', title: 'Pipeline làm sạch và tổng hợp bộ dữ liệu 100K dòng', difficulty: 'Medium', labUrl: '#practice?ex=proj-2' },
+    { id: 'proj-3', title: 'Báo cáo phân tích chuyên sâu kèm bộ biểu đồ trực quan', difficulty: 'Hard', labUrl: '#practice?ex=proj-3' },
+  ],
+  port: [
+    { id: 'port-1', title: 'Viết Case Study tóm tắt dự án nổi bật nhất', difficulty: 'Easy', labUrl: '#practice?ex=port-1' },
+    { id: 'port-2', title: 'Đóng gói mã nguồn và file hướng dẫn tái hiện (Reproducibility)', difficulty: 'Medium', labUrl: '#practice?ex=port-2' },
+    { id: 'port-3', title: 'Tạo trang web Portfolio cá nhân trên GitHub Pages', difficulty: 'Hard', labUrl: '#practice?ex=port-3' },
+  ],
+};
+
+// ── Node Recommended Courses & Prerequisites ───
+export const NODE_RECOMMENDED_COURSES = {
+  py: [
+    { id: 'c-py-1', title: 'Python Syntax & Data Types', category: 'W3Schools Python Tutorial', duration: '35 phút', url: 'https://www.w3schools.com/python/default.asp' },
+    { id: 'c-py-2', title: 'Khóa học Python căn bản từ A-Z', category: 'YouTube • Programming with Mosh', duration: '60 phút', url: 'https://www.youtube.com/watch?v=_uQrJ0TkZlc' },
+  ],
+  np: [
+    { id: 'c-np-1', title: 'NumPy Arrays & Vectorized Computing', category: 'W3Schools NumPy Tutorial', duration: '40 phút', url: 'https://www.w3schools.com/python/numpy/default.asp' },
+    { id: 'c-np-2', title: 'NumPy Full Course cho Data Science', category: 'YouTube • freeCodeCamp', duration: '55 phút', url: 'https://www.youtube.com/watch?v=QUT1VHiLmmI' },
+  ],
+  pd: [
+    { id: 'c-pd-1', title: 'Pandas Series & DataFrames Intro', category: 'W3Schools Pandas Tutorial', duration: '45 phút', url: 'https://www.w3schools.com/python/pandas/default.asp' },
+    { id: 'c-pd-2', title: 'Pandas Data Analysis Thực Chiến', category: 'YouTube • Keith Galli', duration: '60 phút', url: 'https://www.youtube.com/watch?v=vmEHCJofslg' },
+  ],
+  dc: [
+    { id: 'c-dc-1', title: 'Cleaning Empty Cells & Missing Data', category: 'W3Schools Data Cleaning', duration: '40 phút', url: 'https://www.w3schools.com/python/pandas/pandas_cleaning_empty_cells.asp' },
+    { id: 'c-dc-2', title: 'Data Cleaning thực chiến với Pandas', category: 'YouTube • Alex The Analyst', duration: '45 phút', url: 'https://www.youtube.com/watch?v=bDhvCp3_lYw' },
+  ],
+  dt: [
+    { id: 'c-dt-1', title: 'Pandas Correlations & Grouping', category: 'W3Schools Pandas Analysis', duration: '50 phút', url: 'https://www.w3schools.com/python/pandas/pandas_correlations.asp' },
+    { id: 'c-dt-2', title: 'Mastering GroupBy, Aggregations & Slicing', category: 'YouTube • Corey Schafer', duration: '50 phút', url: 'https://www.youtube.com/watch?v=txMdrV1Ut64' },
+  ],
+  sql1: [
+    { id: 'c-sql1-1', title: 'SQL Syntax, SELECT & WHERE Clause', category: 'W3Schools SQL Tutorial', duration: '35 phút', url: 'https://www.w3schools.com/sql/default.asp' },
+    { id: 'c-sql1-2', title: 'Khóa học SQL toàn diện cho Data Analyst', category: 'YouTube • freeCodeCamp', duration: '60 phút', url: 'https://www.youtube.com/watch?v=HXV3zeQKqGY' },
+  ],
+  sql2: [
+    { id: 'c-sql2-1', title: 'SQL JOINs: INNER, LEFT, RIGHT, FULL', category: 'W3Schools SQL Joins', duration: '55 phút', url: 'https://www.w3schools.com/sql/sql_join.asp' },
+    { id: 'c-sql2-2', title: 'Bí kíp làm chủ SQL JOINs & GROUP BY', category: 'YouTube • Alex The Analyst', duration: '45 phút', url: 'https://www.youtube.com/watch?v=lXQzD09BOH0' },
+  ],
+  eda: [
+    { id: 'c-eda-1', title: 'Data Science & Analytics Overview', category: 'W3Schools Data Science', duration: '45 phút', url: 'https://www.w3schools.com/datascience/default.asp' },
+    { id: 'c-eda-2', title: 'Data Analysis with Python Full Course', category: 'YouTube • freeCodeCamp', duration: '55 phút', url: 'https://www.youtube.com/watch?v=r-uOLxNrNk8' },
+  ],
+  stat: [
+    { id: 'c-stat-1', title: 'Descriptive Statistics & Mean/Median', category: 'W3Schools Statistics', duration: '50 phút', url: 'https://www.w3schools.com/statistics/index.php' },
+    { id: 'c-stat-2', title: 'Statistics - Full University Course on Data Science', category: 'YouTube • freeCodeCamp', duration: '60 phút', url: 'https://www.youtube.com/watch?v=xxpc-HPKN28' },
+  ],
+  viz: [
+    { id: 'c-viz-1', title: 'Matplotlib Intro & Line Plotting', category: 'W3Schools Data Visualization', duration: '45 phút', url: 'https://www.w3schools.com/python/matplotlib_intro.asp' },
+    { id: 'c-viz-2', title: 'Vẽ biểu đồ phân tích với Matplotlib', category: 'YouTube • Corey Schafer', duration: '50 phút', url: 'https://www.youtube.com/watch?v=UO98lJQ3QGI' },
+  ],
+  bm: [
+    { id: 'c-bm-1', title: 'Essential Business KPIs (CAC, LTV, Churn)', category: 'Business Analytics Guide', duration: '50 phút', url: 'https://www.investopedia.com/terms/k/kpi.asp' },
+    { id: 'c-bm-2', title: 'What are KPIs & Business Metrics?', category: 'YouTube • Alex The Analyst', duration: '45 phút', url: 'https://www.youtube.com/watch?v=ItZlTixh6Bs' },
+  ],
+  story: [
+    { id: 'c-story-1', title: 'Framework: Problem - Evidence - Action', category: 'Strategic Influence Guide', duration: '45 phút', url: 'https://hbr.org/2020/02/how-to-tell-a-story-with-data' },
+    { id: 'c-story-2', title: 'Storytelling with Data: 5 Bước kể chuyện', category: 'YouTube • Talks at Google', duration: '45 phút', url: 'https://www.youtube.com/watch?v=8EMW7io4rSI' },
+  ],
+  proj: [
+    { id: 'c-proj-1', title: 'Git Tutorial: Repositories & Commits', category: 'W3Schools Git Tutorial', duration: '45 phút', url: 'https://www.w3schools.com/git/default.asp' },
+    { id: 'c-proj-2', title: 'Data Analyst Portfolio Project từ A-Z', category: 'YouTube • Alex The Analyst', duration: '75 phút', url: 'https://www.youtube.com/watch?v=qfyynHBFOsM' },
+  ],
+  port: [
+    { id: 'c-port-1', title: 'Publishing Website on GitHub Pages', category: 'W3Schools GitHub Pages', duration: '40 phút', url: 'https://www.w3schools.com/git/git_remote_pages.asp' },
+    { id: 'c-port-2', title: 'Chiến lược làm Portfolio Data ấn tượng', category: 'YouTube • Kaggle', duration: '45 phút', url: 'https://www.youtube.com/watch?v=xrhPjE7wHas' },
+  ],
+};
 export const CHALLENGES = [
   {
     id: 'ch1',

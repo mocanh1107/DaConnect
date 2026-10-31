@@ -29,28 +29,49 @@ const ROUTES = {
 let currentRoute = 'dashboard';
 
 export function initRouter() {
-  const hash = window.location.hash.replace('#', '') || 'dashboard';
-  navigate(hash);
+  const raw = window.location.hash.replace(/^#\/?/, '') || 'dashboard';
+  navigate(raw, false);
   window.addEventListener('hashchange', () => {
-    const route = window.location.hash.replace('#', '') || 'dashboard';
-    navigate(route, false);
+    const nextRaw = window.location.hash.replace(/^#\/?/, '') || 'dashboard';
+    navigate(nextRaw, false);
   });
 }
 
-export function navigate(route, updateHash = true) {
-  if (!ROUTES[route]) route = 'dashboard';
+export function navigate(routeInput, updateHash = true) {
+  const raw = routeInput || 'dashboard';
+  const [routePart, queryPart] = raw.split('?');
+  const route = ROUTES[routePart] ? routePart : 'dashboard';
   currentRoute = route;
-  if (updateHash) window.location.hash = route;
+
+  // Extract query parameters like ?ex=pd-2 or ?id=py-1
+  if (queryPart) {
+    try {
+      const params = new URLSearchParams(queryPart);
+      const exId = params.get('ex') || params.get('id');
+      if (exId) {
+        window._selectedExerciseId = exId;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  if (updateHash) {
+    window.location.hash = raw;
+  }
+
   renderSidebar(route, navigate);
   renderNavbar(route);
   updateSidebarActive(route);
+
   const content = document.getElementById('content');
-  content.innerHTML = '';
-  content.scrollTop = 0;
-  ROUTES[route](content, navigate);
+  if (content) {
+    content.innerHTML = '';
+    content.scrollTop = 0;
+    ROUTES[route](content, navigate);
+  }
 }
 
 export function getCurrentRoute() {
   return currentRoute;
 }
-

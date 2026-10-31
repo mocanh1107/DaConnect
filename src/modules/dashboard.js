@@ -7,15 +7,23 @@ import { CHALLENGES, JOBS, EXERCISES } from '../data/mockData.js';
 import { ICONS } from '../components/icons.js';
 
 const SKILL_NAMES = {
-  filtering: 'Lọc & Truy vấn dữ liệu',
-  missing_values: 'Xử lý dữ liệu thiếu',
-  groupby: 'GroupBy & Tổng hợp',
-  merge: 'Merge dữ liệu',
-  statistics: 'Thống kê mô tả',
-  outliers: 'Phát hiện Ngoại lệ',
+  py: 'Python Fundamentals',
+  np: 'NumPy Arrays & Matrices',
+  pd: 'Pandas Data Manipulation',
+  dc: 'Data Cleaning & Preprocessing',
+  dt: 'Data Transformation & Features',
+  sql1: 'SQL Query Fundamentals',
+  sql2: 'SQL Aggregations & Joins',
+  eda: 'Exploratory Data Analysis',
+  stat: 'Applied Statistics & Testing',
+  viz: 'Data Visualization & Charts',
+  bm: 'Business Metrics & KPIs',
+  story: 'Data Storytelling & Briefs',
+  proj: 'Final DA Capstone Project',
+  port: 'Portfolio & Showcase',
 };
 
-const SKILL_KEYS = ['filtering', 'missing_values', 'groupby', 'merge', 'statistics', 'outliers'];
+const SKILL_KEYS = Object.keys(SKILL_NAMES);
 
 // Simulated 7-day activity heights (percentages)
 const WEEK_ACTIVITY = [40, 70, 55, 90, 35, 80, 60];
@@ -63,18 +71,20 @@ export function renderDashboard(container, navigate) {
 
   // Compute stats
   const totalSkills = SKILL_KEYS.length;
-  const completedSkills = SKILL_KEYS.filter(k => skills[k]).length;
+  const completedSkills = SKILL_KEYS.filter(k => {
+    const skillExercises = EXERCISES.filter(ex => ex.nodeId === k);
+    return skillExercises.length > 0 && skillExercises.every(ex => exercises[ex.id]?.solved);
+  }).length;
   const learningProgress = Math.round((completedSkills / totalSkills) * 100);
   const totalXP = user.xp || 3950;
   const streakDays = user.streak || 7;
 
   // Get skill progress per skill based on solved exercises
   function getSkillProgress(skillKey) {
-    const skillExercises = EXERCISES.filter(ex => ex.skill === skillKey);
-    if (skillExercises.length === 0) return skills[skillKey] ? 100 : 0;
+    const skillExercises = EXERCISES.filter(ex => ex.nodeId === skillKey);
+    if (skillExercises.length === 0) return 0;
     const solved = skillExercises.filter(ex => exercises[ex.id]?.solved).length;
-    const base = skills[skillKey] ? 100 : Math.round((solved / skillExercises.length) * 100);
-    return Math.min(base, 100);
+    return Math.min(100, Math.round((solved / skillExercises.length) * 100));
   }
 
   // Pick 2 featured challenges

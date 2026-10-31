@@ -681,20 +681,37 @@
 }
 
 /* Top 1, Top 2, Top 3 distinct luxury gradients */
+/* Top 1: Vàng kim có chiều sâu (from-amber-100 via-amber-50 to-yellow-100), viền border-amber-400, bóng đổ vàng ấm */
 .leaderboard-row-top1 {
-  background: linear-gradient(90deg, rgba(254, 243, 199, 0.9) 0%, rgba(254, 252, 232, 0.75) 100%) !important;
-  border: 1.5px solid #FCD34D !important;
-  box-shadow: 0 3px 12px rgba(245, 158, 11, 0.15);
+  background: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 45%, #FEF08A 100%) !important;
+  border: 1.5px solid #FBBF24 !important;
+  box-shadow: 0 6px 16px -2px rgba(253, 230, 138, 0.65), 0 3px 6px -1px rgba(245, 158, 11, 0.2) !important;
 }
+.leaderboard-row-top1:hover {
+  transform: translateX(3px) scale(1.01);
+  box-shadow: 0 8px 20px -2px rgba(253, 230, 138, 0.85), 0 4px 8px -1px rgba(245, 158, 11, 0.25) !important;
+}
+
+/* Top 2: Bạc sáng ánh xanh (from-slate-100 via-slate-50 to-gray-200), viền border-slate-300, bóng xám bạc */
 .leaderboard-row-top2 {
-  background: linear-gradient(90deg, rgba(241, 245, 249, 0.95) 0%, rgba(248, 250, 252, 0.8) 100%) !important;
+  background: linear-gradient(135deg, #F1F5F9 0%, #F8FAFC 50%, #E5E7EB 100%) !important;
   border: 1.5px solid #CBD5E1 !important;
-  box-shadow: 0 2px 8px rgba(148, 163, 184, 0.15);
+  box-shadow: 0 5px 14px -2px rgba(148, 163, 184, 0.4), 0 2px 5px -1px rgba(100, 116, 139, 0.15) !important;
 }
+.leaderboard-row-top2:hover {
+  transform: translateX(3px) scale(1.01);
+  box-shadow: 0 7px 18px -2px rgba(148, 163, 184, 0.55), 0 3px 7px -1px rgba(100, 116, 139, 0.2) !important;
+}
+
+/* Top 3: Đồng ánh đỏ cam tách biệt hẳn (from-orange-100/90 via-amber-50 to-orange-200/60), viền border-orange-400/80 */
 .leaderboard-row-top3 {
-  background: linear-gradient(90deg, rgba(255, 237, 213, 0.8) 0%, rgba(254, 243, 199, 0.4) 100%) !important;
-  border: 1.5px solid rgba(217, 119, 6, 0.35) !important;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.12);
+  background: linear-gradient(135deg, rgba(255, 237, 213, 0.95) 0%, #FFFBEB 45%, rgba(254, 215, 170, 0.72) 100%) !important;
+  border: 1.5px solid rgba(251, 146, 60, 0.85) !important;
+  box-shadow: 0 5px 14px -2px rgba(251, 146, 60, 0.35), 0 2px 5px -1px rgba(234, 88, 12, 0.15) !important;
+}
+.leaderboard-row-top3:hover {
+  transform: translateX(3px) scale(1.01);
+  box-shadow: 0 7px 18px -2px rgba(251, 146, 60, 0.5), 0 3px 7px -1px rgba(234, 88, 12, 0.22) !important;
 }
 .leaderboard-row-current {
   background: rgba(2, 132, 199, 0.08) !important;

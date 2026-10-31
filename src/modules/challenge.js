@@ -200,29 +200,64 @@ function renderGamifiedLeaderboard(showAll = false) {
     let rowClass = 'leaderboard-item-row';
     let rankBadge = '';
 
+    let xpColor = '#1E293B';
+    let xpUnitColor = '#64748B';
+    let xpSize = '14px';
+
     if (isTop1) {
       rowClass += ' leaderboard-row-top1';
-      rankBadge = `<span style="display:inline-flex;color:#D97706;" title="Top 1 Quán Quân">${ICONS.trophy(18)}</span>`;
+      // Icon cúp vàng sáng với drop shadow ấm
+      rankBadge = `<span style="display:inline-flex;color:#F59E0B;filter:drop-shadow(0 2px 5px rgba(245,158,11,0.5));" title="Top 1 Quán Quân">${ICONS.trophy(20)}</span>`;
+      xpColor = '#B45309';
+      xpUnitColor = '#D97706';
+      xpSize = '16px';
     } else if (isTop2) {
       rowClass += ' leaderboard-row-top2';
-      rankBadge = `<span style="display:inline-flex;color:#64748B;" title="Top 2 Á Quân">${ICONS.award(18)}</span>`;
+      // Icon bạc sáng ánh xanh
+      rankBadge = `<span style="display:inline-flex;color:#64748B;filter:drop-shadow(0 2px 4px rgba(100,116,139,0.35));" title="Top 2 Á Quân">${ICONS.award(20)}</span>`;
+      xpColor = '#334155';
+      xpUnitColor = '#64748B';
+      xpSize = '16px';
     } else if (isTop3) {
       rowClass += ' leaderboard-row-top3';
-      rankBadge = `<span style="display:inline-flex;color:#B45309;" title="Top 3 Quý Quân">${ICONS.award(18)}</span>`;
+      // Icon đồng ánh đỏ cam tách biệt hẳn
+      rankBadge = `<span style="display:inline-flex;color:#EA580C;filter:drop-shadow(0 2px 5px rgba(234,88,12,0.45));" title="Top 3 Quý Quân">${ICONS.award(20)}</span>`;
+      xpColor = '#C2410C';
+      xpUnitColor = '#EA580C';
+      xpSize = '16px';
     } else {
       rankBadge = `<span style="font-size:12px;font-weight:700;color:#94A3B8;">#${entry.rank}</span>`;
+      if (isCurrent) {
+        xpColor = '#0284C7';
+        xpUnitColor = '#0284C7';
+      }
     }
 
     if (isCurrent && !isTop1 && !isTop2 && !isTop3) {
       rowClass += ' leaderboard-row-current';
     }
 
+    // Avatar bo viền sắc nét theo màu kim loại tương ứng
     let avatarBg = '#475569';
     let avatarBorder = 'rgba(255,255,255,0.2)';
-    if (isTop1) { avatarBg = 'linear-gradient(135deg, #F59E0B, #D97706)'; avatarBorder = '#FCD34D'; }
-    else if (isTop2) { avatarBg = 'linear-gradient(135deg, #94A3B8, #64748B)'; avatarBorder = '#E2E8F0'; }
-    else if (isTop3) { avatarBg = 'linear-gradient(135deg, #D97706, #B45309)'; avatarBorder = '#FED7AA'; }
-    else if (isCurrent) { avatarBg = 'linear-gradient(135deg, #0284C7, #0369A1)'; avatarBorder = '#38BDF8'; }
+    let avatarExtra = 'box-shadow: 0 2px 6px rgba(0,0,0,0.1);';
+    if (isTop1) {
+      avatarBg = 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)';
+      avatarBorder = '#F59E0B';
+      avatarExtra = 'box-shadow: 0 0 0 2.5px #FDE68A, 0 3px 8px rgba(217,119,6,0.35);';
+    } else if (isTop2) {
+      avatarBg = 'linear-gradient(135deg, #94A3B8 0%, #64748B 100%)';
+      avatarBorder = '#94A3B8';
+      avatarExtra = 'box-shadow: 0 0 0 2.5px #E2E8F0, 0 3px 8px rgba(71,85,105,0.25);';
+    } else if (isTop3) {
+      avatarBg = 'linear-gradient(135deg, #EA580C 0%, #C2410C 100%)';
+      avatarBorder = '#FB923C';
+      avatarExtra = 'box-shadow: 0 0 0 2.5px #FED7AA, 0 3px 8px rgba(194,65,12,0.35);';
+    } else if (isCurrent) {
+      avatarBg = 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)';
+      avatarBorder = '#38BDF8';
+      avatarExtra = 'box-shadow: 0 0 0 2px #BAE6FD;';
+    }
 
     return `
       <div class="${rowClass}">
@@ -231,26 +266,27 @@ function renderGamifiedLeaderboard(showAll = false) {
           ${rankBadge}
         </div>
 
-        <!-- Avatar -->
-        <div style="width:34px;height:34px;border-radius:50%;background:${avatarBg};border:1.5px solid ${avatarBorder};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+        <!-- Avatar bo viền sắc nét theo màu kim loại tương ứng -->
+        <div style="width:36px;height:36px;border-radius:50%;background:${avatarBg};border:2px solid ${avatarBorder};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white;flex-shrink:0;${avatarExtra}">
           ${entry.initials}
         </div>
 
         <!-- Name & Title -->
         <div style="flex:1;min-width:0;">
-          <div style="font-size:13px;font-weight:${isCurrent ? '800' : '600'};color:${isCurrent ? '#0284C7' : '#0F172A'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+          <div style="font-size:13.5px;font-weight:${isCurrent ? '800' : '600'};color:${isCurrent ? '#0284C7' : '#0F172A'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
             ${entry.name} ${isCurrent ? '<span style="font-size:11px;padding:1px 6px;border-radius:99px;background:#0284C7;color:#fff;font-weight:700;margin-left:4px;">Bạn</span>' : ''}
           </div>
-          <div style="font-size:11px;color:#64748B;display:flex;align-items:center;gap:6px;">
+          <div style="font-size:11px;color:#64748B;display:flex;align-items:center;gap:6px;margin-top:1px;">
             <span>${entry.title}</span>
             <span style="display:inline-flex;align-items:center;gap:2px;color:#F97316;">${ICONS.flame(11)} ${entry.streak}d</span>
           </div>
         </div>
 
-        <!-- XP Badge -->
+        <!-- XP Badge (Tăng kích thước & font-black) -->
         <div style="text-align:right;flex-shrink:0;">
-          <div style="font-size:13px;font-weight:800;color:${isTop1 ? '#B45309' : isCurrent ? '#0284C7' : '#1E293B'};display:inline-flex;align-items:center;gap:3px;">
-            ${entry.score.toLocaleString()} <span style="font-size:10px;font-weight:600;color:#64748B;">XP</span>
+          <div style="font-size:${xpSize};font-weight:900;color:${xpColor};display:inline-flex;align-items:baseline;gap:3px;letter-spacing:-0.02em;">
+            <span>${entry.score.toLocaleString()}</span>
+            <span style="font-size:11px;font-weight:700;color:${xpUnitColor};">XP</span>
           </div>
         </div>
       </div>

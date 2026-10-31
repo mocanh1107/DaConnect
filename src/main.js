@@ -11,12 +11,20 @@ const LS_KEY = 'daconnect_state';
 const defaultState = {
   user: CURRENT_USER,
   skills: {
-    filtering: false,
-    missing_values: false,
-    groupby: false,
-    merge: false,
-    statistics: false,
-    outliers: false,
+    py: false,
+    np: false,
+    pd: false,
+    dc: false,
+    dt: false,
+    sql1: false,
+    sql2: false,
+    eda: false,
+    stat: false,
+    viz: false,
+    bm: false,
+    story: false,
+    proj: false,
+    port: false,
   },
   exercises: {},       // exerciseId -> { solved, attempts }
   roadmapNodes: {},    // nodeId -> 'todo' | 'active' | 'completed'
