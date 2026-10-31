@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DaConnect – Data Career Community</title>
+  <meta name="description" content="Cộng đồng học tập và phát triển sự nghiệp Data dành cho sinh viên và chuyên gia." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230284C7'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-size='18' font-weight='bold' fill='white'>DC</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./src/styles/tokens.css" />
+  <link rel="stylesheet" href="./src/styles/base.css" />
+  <link rel="stylesheet" href="./src/styles/layout.css" />
+  <link rel="stylesheet" href="./src/styles/components.css" />
+  <link rel="stylesheet" href="./src/styles/roadmap.css" />
+  <link rel="stylesheet" href="./src/styles/modules.css" />
+  <script>
+    window.addEventListener('error', function(e) {
+      var src = (e.target && (e.target.src || e.target.href)) || '';
+      var msg = e.message || (src ? 'Không tải được file (Lỗi 404 hoặc MIME type): ' + src : 'Lỗi thực thi script');
+      var el = document.getElementById('debug-error-box');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'debug-error-box';
+        el.style.cssText = 'position:fixed;top:20px;left:20px;right:20px;background:#FEF3F2;border:2px solid #F04438;border-radius:12px;padding:20px;font-family:sans-serif;color:#B42318;z-index:99999;box-shadow:0 10px 25px rgba(0,0,0,0.2);';
+        document.body.appendChild(el);
+      }
+      el.innerHTML += '<div style="margin-bottom:10px;"><strong style="font-size:16px;">⚠️ Phát hiện lỗi:</strong><div style="margin-top:6px;font-size:14px;color:#111;">' + msg + '</div>' + (e.filename ? '<div style="font-family:monospace;font-size:12px;color:#666;margin-top:4px;">Tệp: ' + e.filename + ' (Dòng ' + e.lineno + ')</div>' : '') + '</div>';
+    }, true);
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar"></aside>
+    <div id="main-wrapper">
+      <header id="navbar"></header>
+      <main id="content"></main>
+    </div>
+  </div>
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
+

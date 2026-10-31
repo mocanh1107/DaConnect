@@ -1,0 +1,145 @@
+/* ============================================
+   DaConnect Base Styles
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--color-navy);
+  background-color: var(--color-off-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-gray-50); }
+::-webkit-scrollbar-thumb { background: var(--color-gray-200); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gray-300); }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-navy);
+}
+h1 { font-size: var(--text-4xl); font-weight: var(--weight-extrabold); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); font-weight: var(--weight-semibold); }
+h5 { font-size: var(--text-lg); font-weight: var(--weight-semibold); }
+h6 { font-size: var(--text-base); font-weight: var(--weight-semibold); }
+
+p { line-height: var(--leading-relaxed); color: var(--color-gray-600); }
+a { color: var(--color-primary); text-decoration: none; transition: color var(--transition-fast); }
+a:hover { color: var(--color-primary-dark); }
+
+strong { font-weight: var(--weight-semibold); color: var(--color-navy); }
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-gray-100);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--color-primary-dark);
+}
+pre {
+  font-family: var(--font-mono);
+  background: var(--color-navy);
+  color: #C8D5F0;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+ul, ol { padding-left: var(--space-6); }
+li { margin-bottom: var(--space-1); }
+
+img { max-width: 100%; height: auto; display: block; }
+button { cursor: pointer; font-family: var(--font-sans); }
+input, textarea, select {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  outline: none;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(2, 132, 199, 0.15);
+  color: var(--color-primary-dark);
+}
+
+/* Utility classes */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+}
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.text-primary { color: var(--color-primary); }
+.text-navy { color: var(--color-navy); }
+.text-muted { color: var(--color-gray-500); }
+.text-sm { font-size: var(--text-sm); }
+.text-xs { font-size: var(--text-xs); }
+.font-mono { font-family: var(--font-mono); }
+.font-semibold { font-weight: var(--weight-semibold); }
+.font-bold { font-weight: var(--weight-bold); }
+.d-flex { display: flex; }
+.align-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.hidden { display: none !important; }
+
+/* ── Outline / Hollow Icons (Rỗng ruột) ──────── */
+svg.lucide-icon, svg.lucide {
+  fill: none !important;
+  stroke: currentColor;
+}
+svg.lucide-icon path,
+svg.lucide-icon circle,
+svg.lucide-icon polygon,
+svg.lucide-icon rect,
+svg.lucide-icon line,
+svg.lucide-icon polyline,
+svg.lucide path,
+svg.lucide circle,
+svg.lucide polygon,
+svg.lucide rect,
+svg.lucide line,
+svg.lucide polyline {
+  fill: none !important;
+}
+
