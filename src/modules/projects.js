@@ -11,9 +11,9 @@ import { ICONS } from '../components/icons.js';
 
 function getDifficultyBadge(difficulty) {
   const map = {
-    Beginner:     { cls: 'badge-success',  label: 'Beginner' },
-    Intermediate: { cls: 'badge-warning',  label: 'Intermediate' },
-    Advanced:     { cls: 'badge-primary',  label: 'Advanced' },
+    Beginner:     { cls: 'badge-success', label: 'Beginner' },
+    Intermediate: { cls: 'badge-warning', label: 'Intermediate' },
+    Advanced:     { cls: 'badge-hard',    label: 'Advanced' },
   };
   const b = map[difficulty] || { cls: 'badge-gray', label: difficulty };
   return `<span class="badge ${b.cls}">${b.label}</span>`;
@@ -75,7 +75,7 @@ function getPillBadge(difficulty) {
   if (difficulty === 'Intermediate') {
     return `<span style="margin-left:auto;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:0.02em;background:rgba(245,158,11,0.14);color:#FBBF24;border:1px solid rgba(251,191,36,0.22);display:inline-flex;align-items:center;">Intermediate</span>`;
   }
-  return `<span style="margin-left:auto;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:0.02em;background:rgba(56,189,248,0.14);color:#38BDF8;border:1px solid rgba(56,189,248,0.22);display:inline-flex;align-items:center;">${difficulty}</span>`;
+  return `<span style="margin-left:auto;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:0.02em;background:rgba(240,68,56,0.14);color:#F87171;border:1px solid rgba(240,68,56,0.25);display:inline-flex;align-items:center;">${difficulty}</span>`;
 }
 
 function renderProjectCard(project, container, navigate) {

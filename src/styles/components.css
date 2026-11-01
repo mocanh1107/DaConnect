@@ -163,9 +163,9 @@
 .badge-warning { background: var(--color-warning-bg); color: var(--color-warning); }
 .badge-error { background: var(--color-error-bg); color: var(--color-error); }
 .badge-gray { background: var(--color-gray-100); color: var(--color-gray-600); }
-.badge-easy { background: var(--color-success-bg); color: var(--color-easy); }
-.badge-medium { background: var(--color-warning-bg); color: var(--color-medium); }
-.badge-hard { background: var(--color-error-bg); color: var(--color-hard); }
+.badge-easy, .badge-beginner { background: var(--color-success-bg); color: var(--color-easy); }
+.badge-medium, .badge-intermediate { background: var(--color-warning-bg); color: var(--color-medium); }
+.badge-hard, .badge-advanced { background: var(--color-error-bg); color: var(--color-hard); }
 
 /* ── Tag chips ────────────────────────── */
 .tag {

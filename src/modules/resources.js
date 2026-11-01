@@ -21,7 +21,7 @@ function getLevelBadgeClass(level) {
   switch (level) {
     case 'Beginner': return 'badge-success';
     case 'Intermediate': return 'badge-warning';
-    case 'Advanced': return 'badge-primary';
+    case 'Advanced': return 'badge-hard';
     default: return 'badge-gray';
   }
 }
