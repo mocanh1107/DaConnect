@@ -11,19 +11,23 @@ import { renderChallenge } from './modules/challenge.js';
 import { renderProjects } from './modules/projects.js';
 import { renderCareer } from './modules/career.js';
 import { renderResources } from './modules/resources.js';
+import { renderExplore } from './modules/explore.js';
+import { renderHelp } from './modules/help.js';
 import { renderSidebar, updateSidebarActive } from './components/sidebar.js';
 import { renderNavbar } from './components/navbar.js';
 
 const ROUTES = {
   dashboard: renderDashboard,
+  explore: renderExplore,
+  roadmap: renderRoadmap,
+  practice: renderPractice,
+  projects: renderProjects,
+  resources: renderResources,
   community: renderCommunity,
   qa: renderQA,
-  practice: renderPractice,
-  roadmap: renderRoadmap,
   challenge: renderChallenge,
-  projects: renderProjects,
   career: renderCareer,
-  resources: renderResources,
+  help: renderHelp,
 };
 
 let currentRoute = 'dashboard';

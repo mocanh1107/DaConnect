@@ -1,0 +1,1117 @@
+/* ============================================
+   DaConnect - Explore Data Module Styles
+   Modern Edtech UI (Brilliant, DataCamp, Stripe)
+   Palette: Navy #0B1533, Orange #FF5B18, Slate-50
+   ============================================ */
+
+.explore-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 28px 80px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #0B1533;
+}
+
+/* ── 1. HERO ZONE & BENTO GRID ──────────────── */
+.explore-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.explore-hero-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.explore-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF7ED;
+  color: #EA580C;
+  border: 1px solid #FFEDD5;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(234, 88, 12, 0.08);
+}
+
+.explore-hero-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: #0B1533;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.explore-hero-title span {
+  background: linear-gradient(135deg, #FF5B18 0%, #EA580C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.explore-hero-desc {
+  font-size: 15.5px;
+  color: #64748B;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 720px;
+}
+
+/* Bento Grid 4 Cards */
+.explore-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .explore-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.explore-bento-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 2px 10px rgba(11, 21, 51, 0.03);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.explore-bento-card:hover {
+  transform: translateY(-3px);
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 28px rgba(11, 21, 51, 0.08);
+}
+
+.explore-bento-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.explore-bento-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.explore-bento-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
+.explore-bento-stat {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.explore-bento-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0B1533;
+  margin-bottom: 4px;
+}
+
+.explore-bento-desc {
+  font-size: 13.5px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── SECTION COMMON HEADERS ──────────────────── */
+.explore-section-header {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.explore-section-tag {
+  color: #FF5B18;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.explore-section-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0B1533;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.explore-section-subtitle {
+  font-size: 14.5px;
+  color: #64748B;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 760px;
+}
+
+/* ── 2. CAREER CARDS (DA, DE, DS) ────────────── */
+.explore-career-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 1080px) {
+  .explore-career-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.explore-career-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 18px rgba(11, 21, 51, 0.03);
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.explore-career-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(11, 21, 51, 0.08);
+}
+
+.explore-career-card.da-theme { border-top: 4px solid #2563EB; }
+.explore-career-card.de-theme { border-top: 4px solid #EA580C; }
+.explore-career-card.ds-theme { border-top: 4px solid #7C3AED; }
+
+.explore-career-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.explore-career-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.explore-career-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.explore-career-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0B1533;
+  margin: 0 0 4px 0;
+}
+
+.explore-career-quote {
+  font-size: 13.5px;
+  font-style: italic;
+  color: #475569;
+  margin-bottom: 14px;
+  line-height: 1.45;
+}
+
+.explore-career-meta-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.04em;
+  margin: 14px 0 8px 0;
+}
+
+/* Tool chip tags */
+.explore-chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.explore-chip {
+  background: #F1F5F9;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
+}
+.explore-chip:hover {
+  background: #E2E8F0;
+  color: #0B1533;
+}
+
+/* Segmented Control (Mini Tabs) */
+.explore-segmented-tabs {
+  background: #F1F5F9;
+  border-radius: 12px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  margin: 18px 0 16px 0;
+  border: 1px solid #E2E8F0;
+}
+
+.explore-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #64748B;
+  padding: 7px 4px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.explore-tab-btn:hover {
+  color: #0B1533;
+}
+
+.explore-tab-btn.active {
+  background: #FFFFFF;
+  color: #0B1533;
+  box-shadow: 0 2px 6px rgba(11, 21, 51, 0.08);
+}
+
+/* Tab Content Panes */
+.explore-tab-pane {
+  display: none;
+  animation: fadeInPane 0.2s ease-out;
+}
+.explore-tab-pane.active {
+  display: block;
+}
+@keyframes fadeInPane {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Vertical Timeline */
+.explore-timeline-vert {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.explore-timeline-vert::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: 2px;
+  background: repeating-linear-gradient(to bottom, #CBD5E1 0, #CBD5E1 4px, transparent 4px, transparent 8px);
+}
+
+.explore-timeline-item {
+  position: relative;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.45;
+}
+
+.explore-timeline-dot {
+  position: absolute;
+  left: -20px;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 0 0 0 2px #94A3B8;
+  background: #94A3B8;
+}
+
+.explore-timeline-item.dot-blue .explore-timeline-dot { background: #2563EB; box-shadow: 0 0 0 2px #2563EB; }
+.explore-timeline-item.dot-orange .explore-timeline-dot { background: #EA580C; box-shadow: 0 0 0 2px #EA580C; }
+.explore-timeline-item.dot-purple .explore-timeline-dot { background: #7C3AED; box-shadow: 0 0 0 2px #7C3AED; }
+
+.explore-timeline-time {
+  font-weight: 800;
+  color: #0B1533;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+/* Real-world Problem Callout */
+.explore-callout-quote {
+  background: #F8FAFC;
+  border-left: 4px solid #FF5B18;
+  border-radius: 0 12px 12px 0;
+  padding: 14px 16px;
+  font-style: italic;
+  font-size: 13.5px;
+  color: #1E293B;
+  line-height: 1.55;
+  box-shadow: 0 1px 4px rgba(11, 21, 51, 0.02);
+}
+
+/* Persona / Who fits */
+.explore-persona-box {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.explore-persona-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.explore-persona-item svg {
+  color: #10B981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── 3. CAREER PROGRESSION & SALARY STEPPER ─── */
+.explore-salary-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 32px 30px;
+  box-shadow: 0 4px 20px rgba(11, 21, 51, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* 5-Step Horizontal Stepper */
+.explore-stepper-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.explore-stepper-wrap::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 30px;
+  right: 30px;
+  height: 3px;
+  background: linear-gradient(90deg, #CBD5E1 0%, #FF5B18 50%, #10B981 100%);
+  z-index: 0;
+}
+
+.explore-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  padding: 0 8px;
+  text-align: center;
+  min-width: 120px;
+}
+
+.explore-step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0B1533;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(11, 21, 51, 0.15);
+}
+
+.explore-step-circle.active {
+  background: #FF5B18;
+  box-shadow: 0 0 0 4px rgba(255, 91, 24, 0.2);
+}
+
+.explore-step-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0B1533;
+}
+
+.explore-step-years {
+  font-size: 12px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* Modern Salary Table */
+.explore-table-container {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 12px rgba(11, 21, 51, 0.03);
+}
+
+.explore-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13.5px;
+}
+
+.explore-table thead {
+  background: #0B1533;
+  color: #FFFFFF;
+}
+
+.explore-table th {
+  padding: 16px 20px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.explore-table tbody tr {
+  border-bottom: 1px solid #E2E8F0;
+  transition: background 0.15s ease;
+}
+
+.explore-table tbody tr:hover {
+  background: #F8FAFC;
+}
+
+.explore-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.explore-table td {
+  padding: 16px 20px;
+  vertical-align: middle;
+}
+
+/* Salary Badges */
+.salary-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.salary-pill.da { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.salary-pill.de { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
+.salary-pill.ds { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+
+.explore-salary-disclaimer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #E2E8F0;
+  font-size: 13px;
+  color: #64748B;
+}
+
+/* ── 4. MINI DATA GAMES PLAYGROUND ───────────── */
+.explore-games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 1080px) {
+  .explore-games-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.explore-game-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 22px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(11, 21, 51, 0.03);
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.explore-game-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 30px rgba(11, 21, 51, 0.08);
+}
+
+.explore-game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.explore-game-num-tag {
+  background: #F1F5F9;
+  color: #475569;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.explore-game-xp-badge {
+  background: #FFF7ED;
+  color: #EA580C;
+  border: 1px solid #FFEDD5;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 1px 3px rgba(234, 88, 12, 0.1);
+}
+
+.explore-game-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0B1533;
+  margin: 0 0 6px 0;
+}
+
+.explore-game-desc {
+  font-size: 13.5px;
+  color: #64748B;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+/* Game 1: Data Detective Table */
+.detective-table-wrap {
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.detective-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.detective-table thead {
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.detective-table th {
+  padding: 8px 10px;
+  font-weight: 700;
+  color: #475569;
+  text-align: left;
+}
+
+.detective-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #1E293B;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.detective-table tr:hover td {
+  background: #F8FAFC;
+}
+
+.detective-table td.selected-cell {
+  background: #FFF7ED !important;
+  color: #C2410C !important;
+  font-weight: 700;
+  outline: 2px solid #FF5B18;
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+/* Game 2: Chart Choice Cards */
+.chart-choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.chart-choice-card {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.chart-choice-card:hover {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  transform: translateY(-1px);
+}
+
+.chart-choice-card.selected {
+  background: #FFF7ED;
+  border-color: #FF5B18;
+  box-shadow: 0 0 0 3px rgba(255, 91, 24, 0.15);
+}
+
+.chart-choice-card.correct {
+  background: #ECFDF5;
+  border-color: #10B981;
+}
+
+.chart-choice-card.wrong {
+  background: #FEF2F2;
+  border-color: #EF4444;
+}
+
+.chart-choice-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0B1533;
+  flex-shrink: 0;
+}
+
+.chart-choice-text strong {
+  display: block;
+  font-size: 13px;
+  color: #0B1533;
+}
+
+.chart-choice-text span {
+  font-size: 11.5px;
+  color: #64748B;
+}
+
+/* Game 3: Insight Choice Cards */
+.insight-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.insight-card-btn {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: #1E293B;
+  line-height: 1.45;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.insight-card-btn:hover {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+}
+
+.insight-card-btn.selected {
+  background: #FFF7ED;
+  border-color: #FF5B18;
+  box-shadow: 0 0 0 3px rgba(255, 91, 24, 0.15);
+}
+
+.insight-card-btn.correct {
+  background: #ECFDF5;
+  border-color: #10B981;
+}
+
+.insight-card-btn.wrong {
+  background: #FEF2F2;
+  border-color: #EF4444;
+}
+
+/* Game Submit Button & Feedback */
+.game-action-btn {
+  background: #0B1533;
+  color: #FFFFFF;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.game-action-btn:hover:not(:disabled) {
+  background: #FF5B18;
+  box-shadow: 0 4px 14px rgba(255, 91, 24, 0.3);
+}
+
+.game-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.game-feedback-msg {
+  display: none;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.game-feedback-msg.show {
+  display: block;
+  animation: fadeInPane 0.25s ease-out;
+}
+
+.game-feedback-msg.success {
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+}
+
+.game-feedback-msg.error {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+}
+
+/* ── 5. STEPPER QUIZ TRẮC NGHIỆM ─────────────── */
+.explore-quiz-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow: 0 6px 24px rgba(11, 21, 51, 0.05);
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.quiz-stepper-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.quiz-stepper-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #FF5B18;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.quiz-stepper-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.quiz-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #F1F5F9;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF5B18 0%, #10B981 100%);
+  border-radius: 9999px;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quiz-question-box {
+  animation: fadeInPane 0.25s ease-out;
+}
+
+.quiz-question-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0B1533;
+  line-height: 1.4;
+  margin: 0 0 24px 0;
+}
+
+.quiz-options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quiz-choice-btn {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  width: 100%;
+  font-size: 14.5px;
+  color: #1E293B;
+  line-height: 1.45;
+}
+
+.quiz-choice-btn:hover {
+  border-color: #FF5B18;
+  background: #FFF7ED;
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(255, 91, 24, 0.1);
+}
+
+.quiz-choice-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #F1F5F9;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.quiz-choice-btn:hover .quiz-choice-letter {
+  background: #FF5B18;
+  color: #FFFFFF;
+}
+
+/* Quiz Result Celebration Screen */
+.quiz-result-view {
+  display: none;
+  text-align: center;
+  animation: fadeInPane 0.3s ease-out;
+}
+
+.quiz-result-view.show {
+  display: block;
+}
+
+.quiz-result-trophy {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: #FFF7ED;
+  color: #EA580C;
+  border: 1px solid #FFEDD5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.15);
+}
+
+.quiz-result-badge-top {
+  font-size: 12px;
+  font-weight: 800;
+  color: #EA580C;
+  background: #FFF7ED;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.quiz-result-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0B1533;
+  margin: 0 0 10px 0;
+}
+
+.quiz-result-title span {
+  color: #FF5B18;
+}
+
+.quiz-result-desc {
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0 auto 28px auto;
+}
+
+/* 3 Correlation Progress Bars */
+.quiz-correlation-box {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.quiz-corr-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quiz-corr-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0B1533;
+}
+
+.quiz-corr-track {
+  height: 10px;
+  background: #E2E8F0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.quiz-corr-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quiz-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.quiz-cta-primary {
+  background: #FF5B18;
+  color: #FFFFFF;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 13px 26px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(255, 91, 24, 0.35);
+  transition: all 0.2s ease;
+}
+
+.quiz-cta-primary:hover {
+  background: #EA580C;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 91, 24, 0.45);
+}
+
+.quiz-cta-secondary {
+  background: #FFFFFF;
+  color: #475569;
+  border: 1.5px solid #CBD5E1;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.quiz-cta-secondary:hover {
+  background: #F1F5F9;
+  color: #0B1533;
+  border-color: #94A3B8;
+}
+

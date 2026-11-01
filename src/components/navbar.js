@@ -8,6 +8,7 @@ import { ICONS } from './icons.js';
 
 const PAGE_TITLES = {
   dashboard: { label: 'Trang chủ', icon: ICONS.dashboard(16) },
+  explore: { label: 'Khám phá ngành Data', icon: ICONS.compass(16) },
   roadmap: { label: 'Roadmap', icon: ICONS.roadmap(16) },
   practice: { label: 'Practice Lab', icon: ICONS.practice(16) },
   projects: { label: 'Project Lab', icon: ICONS.projects(16) },
@@ -16,6 +17,7 @@ const PAGE_TITLES = {
   qa: { label: 'Data Q&A', icon: ICONS.qa(16) },
   challenge: { label: 'Challenge Arena', icon: ICONS.challenge(16) },
   career: { label: 'Career Hub', icon: ICONS.career(16) },
+  help: { label: 'Help & Hướng dẫn', icon: ICONS.help(16) },
 };
 
 export function renderNavbar(currentRoute) {
