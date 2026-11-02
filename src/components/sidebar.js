@@ -16,8 +16,10 @@ export function renderSidebar(currentRoute, onNavigate) {
   const isHelpActive = currentRoute === 'help';
 
   el.innerHTML = `
-    <div class="sidebar-logo">
-      <div class="sidebar-logo-mark">DC</div>
+    <div class="sidebar-logo" data-route="dashboard" role="button" tabindex="0" title="DaConnect - Trang chủ">
+      <div class="sidebar-logo-mark">
+        <img src="./src/assets/logo.png" alt="DaConnect Logo" class="sidebar-logo-img" />
+      </div>
       <div class="sidebar-logo-text">
         <span class="sidebar-logo-name">DaConnect</span>
         <span class="sidebar-logo-tagline">Data Career Community</span>
@@ -113,6 +115,13 @@ export function renderSidebar(currentRoute, onNavigate) {
       onNavigate(btn.dataset.route);
     });
   });
+
+  const logoEl = el.querySelector('.sidebar-logo');
+  if (logoEl) {
+    logoEl.addEventListener('click', () => {
+      onNavigate('dashboard');
+    });
+  }
 }
 
 export function updateSidebarActive(route) {

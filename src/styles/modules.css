@@ -2,201 +2,745 @@
    DaConnect Module-specific Styles
    ============================================ */
 
-/* ── Dashboard (Redesigned Modern Gamified) ────────────────────────── */
-.dashboard-hero {
+/* ?? Dashboard Brilliant-style Interactive Typography Hero (No-Scroll 100vh & max-w-6xl Typography) ?? */
+.dashboard-brilliant-hero {
   position: relative;
-  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 14px 24px 16px;
+  margin-bottom: 16px;
+  background-color: #FFFFFF;
+  background-image: radial-gradient(rgba(226, 232, 240, 0.65) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-radius: 24px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(11, 21, 51, 0.04);
   overflow: hidden;
-  padding: 34px 36px 30px;
-  margin-bottom: 28px;
-  background: linear-gradient(135deg, #050C1F 0%, #091B3E 45%, #0A2F5E 100%);
-  color: #fff;
-  box-shadow: 0 20px 40px -15px rgba(2, 26, 68, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  height: 350px;
+  max-height: 360px;
+  box-sizing: border-box;
 }
-.dashboard-hero::before {
-  content: '';
+
+@media (min-width: 768px) {
+  .dashboard-brilliant-hero {
+    padding: 12px 28px 14px;
+    border-radius: 24px;
+    margin-bottom: 12px;
+    height: 290px;
+    max-height: 298px;
+  }
+}
+
+.brilliant-hero-ambient-glow {
   position: absolute;
-  top: -60px;
-  right: -50px;
-  width: 340px;
-  height: 340px;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 850px;
+  height: 380px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(255, 91, 24, 0.06) 0%, rgba(99, 102, 241, 0.03) 45%, transparent 70%);
   pointer-events: none;
+  z-index: 0;
 }
-.dashboard-hero::after {
-  content: '';
+
+.brilliant-hero-math-grid {
   position: absolute;
-  bottom: -60px;
-  left: 25%;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
+  inset: 0;
+  background-image: radial-gradient(rgba(226, 232, 240, 0.65) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.35;
   pointer-events: none;
+  z-index: 0;
 }
-.dashboard-hero-content {
-  position: relative;
-  z-index: 2;
+
+/* 100% Full Width Axis Running Edge-to-Edge */
+.brilliant-full-axis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 1px;
+  pointer-events: none;
+  z-index: 1;
 }
-.dashboard-hero-cta {
+
+.brilliant-full-axis.axis-top {
+  top: 48px;
+}
+
+.brilliant-full-axis.axis-bottom {
+  bottom: 64px;
+}
+
+.brilliant-full-axis-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    rgba(226, 232, 240, 0) 0%, 
+    rgba(226, 232, 240, 0.85) 15%, 
+    rgba(203, 213, 225, 0.95) 50%, 
+    rgba(226, 232, 240, 0.85) 85%, 
+    rgba(226, 232, 240, 0) 100%
+  );
   position: relative;
-  z-index: 2;
-  margin-top: 22px;
-  padding: 18px 22px;
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
+}
+
+.brilliant-full-axis-ticks {
+  width: 100%;
+  height: 7px;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: -3px;
+  left: 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.brilliant-full-axis-ticks span {
+  width: 1px;
+  height: 7px;
+  background: #CBD5E1;
+  opacity: 0.45;
+}
+
+.brilliant-full-axis-ticks span:nth-child(5n) {
+  height: 11px;
+  top: -2px;
+  position: relative;
+  background: #94A3B8;
+  opacity: 0.75;
+}
+
+/* Top Row: Badge & User Greeting on 1 Single Row */
+.brilliant-hero-top-row {
+  position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  flex-wrap: wrap;
+  margin-bottom: 2px;
+  z-index: 10;
 }
 
-/* Gamified 3-Dome Stats Grid (Inspired by Mơ Digital SAT) */
+.brilliant-hero-top-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: #FFF7ED;
+  border: 1px solid rgba(255, 91, 24, 0.25);
+  color: #EA580C;
+}
+
+.brilliant-hero-user-pinned {
+  font-size: 11.5px;
+  color: #94A3B8;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.brilliant-hero-user-pinned strong {
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Typography Stage: Expanded to max-w-5xl / max-w-6xl */
+.brilliant-typo-stage {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  position: relative;
+  user-select: none;
+  z-index: 10;
+}
+
+.brilliant-row-1,
+.brilliant-row-2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  color: #0F172A;
+  line-height: 0.9;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .brilliant-row-1,
+  .brilliant-row-2 {
+    font-size: 5.15rem;
+    line-height: 0.92;
+  }
+}
+
+.serif-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  color: #0F172A;
+  display: inline-block;
+}
+
+.word-spacing {
+  display: inline-block;
+  width: 0.22em;
+}
+
+/* Word Learn Wrap + Histogram Slider on Left Wing */
+.word-learn-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.svg-histogram-slider {
+  position: absolute;
+  left: -135px;
+  top: -22px;
+  width: 250px;
+  height: 125px;
+  z-index: -1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Word Data Wrap + Integrated Orange Trendline Chart Zone (Intersects naturally behind text) */
+.word-data-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.word-data-wrap .serif-text {
+  position: relative;
+  z-index: 2;
+  color: #0F172A;
+}
+
+.hero-chart-orange-zone {
+  position: absolute;
+  left: calc(100% - 72px); /* ~28% chiều dài đường nằm sau chữ Data */
+  top: -24px;
+  width: 225px;
+  height: 90px;
+  pointer-events: none;
+  z-index: 1; /* Nằm phía sau chữ */
+}
+
+.svg-orange-trend {
+  width: 230px;
+  height: 90px;
+  overflow: visible;
+}
+
+.trendline-r2-badge {
+  position: absolute;
+  left: 96px; /* Ngoài vùng chữ, cách mép phải Data ~24px */
+  top: 58px;  /* Cách đường cam >= 14px */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  padding: 2px 10px;
+  border-radius: 99px;
+  background: #FFF7ED;
+  border: 1.2px solid #FDBA74;
+  color: #EA580C;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  line-height: 1;
+  box-shadow: 0 1px 3px rgba(251, 146, 60, 0.12);
+  pointer-events: none;
+  z-index: 3;
+}
+.trendline-r2-badge sup {
+  font-size: 8.5px;
+  font-weight: 800;
+  margin-left: 1px;
+  margin-right: 2px;
+  top: -0.32em;
+  position: relative;
+}
+
+/* Floating Code Pills (Nestled tightly between rows) */
+.brilliant-floating-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 2px auto 3px;
+  transform: scale(0.92);
+  transform-origin: center;
+}
+
+.code-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(11, 21, 51, 0.05);
+  line-height: 1.35;
+}
+
+.pill-query {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: #64748B;
+}
+.pill-query .code-df { color: #0284C7; font-weight: 700; }
+.pill-query .code-op { color: #2563EB; font-weight: 600; }
+.pill-query .code-arg { color: #D97706; }
+.pill-query .code-dropdown { color: #94A3B8; font-size: 9px; }
+
+.pill-loop {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #166534;
+  font-weight: 600;
+}
+.pill-loop .code-kw { color: #15803D; font-weight: 700; }
+.code-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  display: inline-block;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.pill-yield {
+  background: #FFF7ED;
+  border: 1px solid #FED7AA;
+  color: #9A3412;
+  font-weight: 600;
+}
+.pill-yield .code-kw { color: #EA580C; font-weight: 700; }
+.code-sparkle { color: #F59E0B; font-size: 10px; }
+
+/* Word Doing Wrap + Integrated Blue Curve Chart Zone (Intersects naturally behind text) */
+.word-doing-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.word-doing-wrap .serif-text {
+  position: relative;
+  z-index: 2;
+  color: #0F172A;
+}
+
+.hero-chart-blue-zone {
+  position: absolute;
+  left: calc(100% - 48px); /* ~22% chiều dài đường nằm sau chữ doing */
+  top: 6px;
+  width: 190px;
+  height: 68px;
+  pointer-events: none;
+  opacity: 0.42;
+  z-index: 1; /* Nằm phía sau chữ */
+}
+
+.svg-blue-curve {
+  width: 195px;
+  height: 68px;
+  overflow: visible;
+}
+
+/* Subtitle & Actions (Compressed Footer) */
+.brilliant-hero-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.brilliant-hero-tagline {
+  margin: 2px auto 0;
+  font-size: 0.84rem;
+  color: #64748B;
+  font-weight: 500;
+  max-width: 580px;
+  line-height: 1.4;
+}
+
+.brilliant-hero-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.brilliant-btn-primary {
+  padding: 8.5px 22px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #FF5B18 0%, #EA580C 100%);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 91, 24, 0.28);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.brilliant-btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(255, 91, 24, 0.38);
+}
+.brilliant-btn-primary .btn-arrow {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.brilliant-btn-secondary {
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.brilliant-btn-secondary:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+
+/* Responsive Breakpoints for Hero Typography & Graphic Zones */
+@media (max-width: 1200px) {
+  .hero-chart-orange-zone {
+    width: 180px;
+    left: calc(100% + 14px);
+  }
+  .svg-orange-trend {
+    width: 180px;
+  }
+  .hero-chart-blue-zone {
+    width: 170px;
+    left: calc(100% + 14px);
+  }
+  .svg-blue-curve {
+    width: 170px;
+  }
+}
+
+@media (max-width: 960px) {
+  .dashboard-brilliant-hero {
+    height: auto;
+    max-height: none;
+    padding: 14px 16px 18px;
+  }
+  .brilliant-row-1,
+  .brilliant-row-2 {
+    font-size: 3rem !important;
+    line-height: 1 !important;
+  }
+  .svg-histogram-slider {
+    width: 130px;
+    height: 80px;
+    left: -60px;
+  }
+  .hero-chart-orange-zone,
+  .hero-chart-blue-zone {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-brilliant-hero {
+    height: auto;
+    max-height: none;
+    padding: 12px 10px 16px;
+  }
+  .brilliant-hero-top-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  .brilliant-hero-top-badge {
+    font-size: 9px;
+    padding: 2px 8px;
+    text-align: center;
+  }
+  .brilliant-hero-user-pinned {
+    font-size: 10.5px;
+  }
+  .brilliant-row-1,
+  .brilliant-row-2 {
+    font-size: clamp(1.85rem, 8vw, 2.35rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.03em !important;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+  .svg-histogram-slider,
+  .hero-chart-orange-zone,
+  .hero-chart-blue-zone {
+    display: none !important;
+  }
+  .brilliant-floating-pills {
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 4px auto 6px;
+    transform: scale(0.85);
+  }
+  .code-pill {
+    padding: 2px 7px;
+    font-size: 9.5px;
+    white-space: nowrap;
+  }
+  .brilliant-hero-btn-group {
+    flex-direction: column;
+    width: 100%;
+    max-width: 240px;
+    gap: 6px;
+  }
+  .brilliant-btn-primary,
+  .brilliant-btn-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+}
+
+/* Gamified 3-Dome Stats Grid (Standardized 4-Row Symmetry, Uniform 24px Rounded, 188px Height) */
 .gamified-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-bottom: 30px;
+  gap: 16px;
+  margin-top: 16px;
+  margin-bottom: 28px;
 }
 @media (max-width: 960px) {
   .gamified-stats-grid { grid-template-columns: 1fr; }
 }
 
 .gamified-dome-card {
-  border-radius: 110px 110px 28px 28px;
-  padding: 32px 22px 24px;
+  border-radius: 24px; /* Chuẩn hóa 24px đồng đều cả 4 góc */
+  padding: 16px 20px 14px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   position: relative;
   overflow: hidden;
   color: #fff;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   cursor: pointer;
   text-decoration: none;
-  min-height: 290px;
-  justify-content: space-between;
+  height: 188px;
+  min-height: 188px;
+  max-height: 188px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 .gamified-dome-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-2px);
+}
+.gamified-dome-card:focus-visible {
+  outline: 2px solid #38BDF8;
+  outline-offset: 2px;
 }
 
-/* Thẻ 1: Chuỗi Ngày Học (Streak - Bonfire Amber/Orange) */
-.dome-streak {
-  background: linear-gradient(180deg, #1C0A04 0%, #2E1206 45%, #421B08 100%);
-  border: 1px solid rgba(251, 146, 60, 0.35);
-  box-shadow: 0 16px 36px -10px rgba(234, 88, 12, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+/* 4 Tầng chuẩn hóa đối xứng */
+.dome-icon-row {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
-.dome-streak::before {
-  content: '';
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(249, 115, 22, 0.25) 0%, transparent 70%);
-  pointer-events: none;
-}
-.dome-streak:hover {
-  box-shadow: 0 22px 46px -10px rgba(234, 88, 12, 0.5), 0 0 25px rgba(251, 146, 60, 0.35);
-}
-
-/* Thẻ 2: XP & Rank (Deep Indigo/Cyan Tech) */
-.dome-xp {
-  background: linear-gradient(180deg, #061129 0%, #0A1C40 50%, #0E295C 100%);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  box-shadow: 0 16px 36px -10px rgba(2, 132, 199, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
-}
-.dome-xp::before {
-  content: '';
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
-  pointer-events: none;
-}
-.dome-xp:hover {
-  box-shadow: 0 22px 46px -10px rgba(2, 132, 199, 0.45), 0 0 25px rgba(56, 189, 248, 0.3);
-}
-
-/* Thẻ 3: Daily Challenge (Violet Nebula Glow) */
-.dome-challenge {
-  background: linear-gradient(180deg, #120A24 0%, #1B0E3D 50%, #291357 100%);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  box-shadow: 0 16px 36px -10px rgba(124, 58, 237, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
-}
-.dome-challenge::before {
-  content: '';
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 70%);
-  pointer-events: none;
-}
-.dome-challenge:hover {
-  box-shadow: 0 22px 46px -10px rgba(124, 58, 237, 0.45), 0 0 25px rgba(168, 85, 247, 0.3);
-}
-
-.dome-icon-wrap {
-  width: 52px;
-  height: 52px;
+.dome-icon-circle {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.08);
+  transition: transform 180ms ease;
+}
+.gamified-dome-card:hover .dome-icon-circle {
+  transform: scale(1.06);
 }
 
+.dome-title-row {
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 .dome-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
-  margin-bottom: 8px;
-  opacity: 0.9;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.dome-main-zone {
+  height: 64px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .dome-stat-number {
-  font-size: 3.2rem;
-  font-weight: 800;
+  font-size: 2.35rem; /* ~38-40px */
+  font-weight: 900;
   line-height: 1;
-  letter-spacing: -0.02em;
-  margin-bottom: 6px;
+  letter-spacing: -0.03em;
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+}
+.dome-stat-unit {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
-.dome-link {
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0.85;
-  transition: all 0.2s ease;
+.dome-pill-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  margin-top: 12px;
+  gap: 4px;
+  padding: 2px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+.dome-sublabel {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  line-height: 1;
+}
+
+.dome-reward-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.dome-challenge-name {
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+.dome-footer-row {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.dome-link {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 180ms ease;
 }
 .gamified-dome-card:hover .dome-link {
-  opacity: 1;
-  transform: translateX(3px);
+  transform: translateX(2px);
+}
+
+/* Thẻ 1: Điểm Tích Lũy (#163959 / #235882 / Accent #38BDF8) */
+.dome-xp {
+  background: linear-gradient(180deg, #163959 0%, #1A446B 100%);
+  border: 1px solid #235882;
+}
+.dome-xp:hover {
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.20) inset, 0 6px 18px -3px rgba(15, 23, 42, 0.20), 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Thẻ 2: Chuỗi Ngày Học (#9A3412 -> #C2410C) */
+.dome-streak {
+  background: linear-gradient(135deg, #9A3412 0%, #B43E10 45%, #C2410C 100%);
+  border: 1px solid rgba(254, 215, 170, 0.35);
+}
+.dome-streak:hover {
+  border-color: #FDE68A;
+  box-shadow: 0 6px 18px -3px rgba(15, 23, 42, 0.20), 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Thẻ 3: Daily Challenge (#361F4D / #643E87) */
+.dome-challenge {
+  background: linear-gradient(180deg, #361F4D 0%, #442461 100%);
+  border: 1px solid #643E87;
+}
+.dome-challenge:hover {
+  border-color: #C084FC;
+  box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.20) inset, 0 6px 18px -3px rgba(15, 23, 42, 0.20), 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Accessibility: Reduced motion & Focus-visible */
+@media (prefers-reduced-motion: reduce) {
+  .gamified-dome-card,
+  .dome-icon-circle,
+  .dome-link,
+  .brilliant-btn-primary,
+  .brilliant-btn-secondary {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+.brilliant-btn-primary:focus-visible,
+.brilliant-btn-secondary:focus-visible {
+  outline: 2px solid #FF5B18;
+  outline-offset: 2px;
 }
 
 /* Lower Section */

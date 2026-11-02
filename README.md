@@ -1,190 +1,200 @@
-# DaConnect – Data Career Community Platform 🚀
+# DaConnect – Data Career Community Platform
 
-> **Nền tảng Cộng đồng, Học tập & Định hướng Sự nghiệp Dữ liệu toàn diện dành cho sinh viên và chuyên gia Data tại Việt Nam.**
-
-![DaConnect](https://img.shields.io/badge/DaConnect-v1.0.0-FF5B18?style=for-the-badge)
-![Vanilla JS](https://img.shields.io/badge/Vanilla_JS-ES_Modules-F7DF1E?style=for-the-badge&logo=javascript)
-![CSS3](https://img.shields.io/badge/CSS3-Design_Tokens-1572B6?style=for-the-badge&logo=css3)
-![Python Server](https://img.shields.io/badge/Dev_Server-Python_HTTP-3776AB?style=for-the-badge&logo=python)
+Nền tảng cộng đồng, học tập tương tác và phát triển sự nghiệp Khoa học Dữ liệu (Data Science & Analytics) dành cho sinh viên và nhân sự chuyển ngành tại Việt Nam.
 
 ---
 
-## 📋 Giới thiệu Dự án
+## 1. TỔNG QUAN DỰ ÁN
 
-**DaConnect** là nền tảng Single Page Application (SPA) chuyên biệt kết nối toàn bộ hệ sinh thái phát triển sự nghiệp trong ngành Dữ liệu (Data Analyst, Data Engineer, Data Scientist):
+DaConnect là hệ thống Single Page Application (SPA) tích hợp toàn diện các phân hệ từ định hướng nghề nghiệp, đào tạo kỹ năng thực chiến, rèn luyện giải thuật dữ liệu, đến xây dựng hồ sơ năng lực (Portfolio) và kết nối việc làm.
 
-```
-Khám phá Data ➔ Roadmap kỹ năng ➔ Practice Lab ➔ Project Lab ➔ Tài nguyên ➔ Q&A & Tin tức ➔ Đấu trường Arena ➔ Tuyển dụng Career
-```
+Hệ thống được thiết kế theo tiêu chuẩn công nghệ và giao diện của các nền tảng giáo dục công nghệ hàng đầu (Brilliant.org, DataCamp, LeetCode, NeetCode), kết hợp cơ chế Gamification giúp tối ưu hóa động lực học tập bền bỉ cho người dùng.
 
-Được thiết kế theo tiêu chuẩn UI/UX của các nền tảng edtech hàng đầu thế giới (**Brilliant.org, DataCamp, Stripe, Linear**), DaConnect mang đến trải nghiệm học tập gắn liền với **Gamification** (điểm XP, chuỗi Streak, bảng vàng thi đấu, mini-games tương tác).
+### Các giá trị cốt lõi
+- Học tập qua thực hành (Learn Data by doing): Chuyển hóa lý thuyết thành các bài toán dữ liệu thực tế có thể chạy code và chấm điểm tự động tức thì.
+- Lộ trình có cấu trúc (Structured Roadmap): Bản đồ tri thức dạng đồ thị có hướng (DAG), phân định rõ mối quan hệ điều kiện tiên quyết giữa các kỹ năng.
+- Gắn kết cộng đồng (Community-Driven): Diễn đàn hỏi đáp kỹ thuật, tạp chí phân tích xu hướng AI/Data và nhóm cộng đồng hỗ trợ hơn 9,500 thành viên.
 
 ---
 
-## ✨ 11 Phân hệ Chức năng Cốt lõi
+## 2. KIẾN TRÚC KỸ THUẬT VÀ CÔNG NGHỆ
 
-| Phân hệ | Route | Mô tả & Tính năng nổi bật |
+Dự án áp dụng mô hình kiến trúc SPA không phụ thuộc vào framework nặng, tối ưu hóa triệt để tốc độ phản hồi và khả năng bảo trì lâu dài.
+
+| Thành phần | Công nghệ sử dụng | Mục đích triển khai |
+| :--- | :--- | :--- |
+| Core Framework | Vanilla JavaScript (ES6+ Modules) | Kiến trúc Module hóa độc lập, không phụ thuộc build tool phức tạp, tải trang dưới 0.5s |
+| Routing Engine | Client-Side Hash Router | Quản lý lịch sử duyệt trang, điều hướng mượt mà không reload trình duyệt |
+| Styling & Tokens | Tailwind CSS + CSS Custom Properties | Hệ thống Design System phân tầng (`tokens.css`, `base.css`, `layout.css`, `components.css`) |
+| Interactive Visuals | Canvas API & Dynamic SVG Cartesian Graphs | Đồ họa dữ liệu tương tác, biểu đồ phân tán hồi quy tuyến tính, sóng Bézier và đồ thị DAG |
+| State Management | LocalStorage Client Store | Bảo toàn trạng thái bài tập, điểm kinh nghiệm (XP), chuỗi ngày học (Streak) và cấu hình cá nhân |
+| Iconography | SVG Outline Vector Engine | Hệ thống hơn 40 biểu tượng vector nét mảnh chuẩn mực, đồng bộ hoàn toàn phong cách Lucide |
+| Branding Assets | High-Resolution Master PNG/SVG | Logo thương hiệu tỷ lệ vuông chuẩn 1:1, favicon đa độ phân giải tối ưu trên mọi màn hình |
+
+---
+
+## 3. DANH MỤC PHÂN HỆ CHỨC NĂNG
+
+Hệ thống bao gồm 11 phân hệ chức năng chuyên biệt, được liên kết chặt chẽ thông qua luồng dữ liệu người dùng:
+
+| Phân hệ | Tuyến đường (Route) | Mô tả nghiệp vụ và tính năng trọng tâm |
 | :--- | :---: | :--- |
-| 🧭 **Explore Data** | `#explore` | **Khám phá ngành Data:** Bento Grid 4 lĩnh vực (E-commerce, Fintech, Streaming, Logistics); 3 Career Cards (DA, DE, DS) với Segmented Tabs (Timeline 1 ngày, Bài toán thực tế, Chân dung phù hợp); Stepper cấp bậc & Bảng mức lương thị trường; 3 Mini Data Games (+30 XP); Stepper Quiz 5 câu trắc nghiệm định hướng có Celebration View. |
-| 🏠 **Dashboard** | `#dashboard` | **Tổng quan cá nhân:** Tiến độ học tập, tổng điểm XP, chuỗi ngày Streak, thẻ thống kê kỹ năng và dòng sự kiện hoạt động gần đây. |
-| 🗺️ **Roadmap** | `#roadmap` | **Cây kỹ năng tương tác (NeetCode style):** Sơ đồ quan hệ tiên quyết giữa các kỹ năng, Drawer bài học tích hợp video YouTube chuẩn và tài liệu W3Schools, liên kết sâu (deep-linking) tới bài tập Practice Lab. |
-| 💻 **Practice Lab** | `#practice` | **Phòng thực hành lập trình:** 42 bài tập thực chiến chia theo 14 nhóm kỹ năng Python, Pandas, SQL. Trình soạn thảo mã nguồn, bộ lọc độ khó, kiểm tra test case tự động tức thì. |
-| 📁 **Project Lab** | `#projects` | **Thư viện đồ án thực chiến:** Các dự án phân tích dữ liệu trên dataset thật (E-commerce, HR Analytics, Retail), hướng dẫn xây dựng Portfolio chuyên nghiệp. |
-| 📚 **Tài nguyên** | `#resources` | **Kho học liệu tuyển chọn:** Sách O'Reilly, khóa học chứng chỉ (Google, Harvard, Kaggle), Cheat Sheet tra cứu nhanh và công cụ chuẩn mực. |
-| 📰 **Data & AI News** | `#community` | **Cộng đồng & Tin tức:** Cập nhật các bài viết phân tích chuyên sâu về GenAI, Big Data, xu hướng công nghệ và thị trường lao động. |
-| 💬 **Data Q&A** | `#qa` | **Diễn đàn hỏi đáp:** Mô hình StackOverflow dành cho dân Dữ liệu, hệ thống biểu quyết (vote), danh hiệu và điểm uy tín. |
-| 🏆 **Challenge Arena** | `#challenge` | **Đấu trường thi đấu:** Thử thách giải quyết bài toán dữ liệu hàng tuần, bục vinh danh Podium Top 1 (Vàng kim), Top 2 (Bạc sáng), Top 3 (Đồng ánh đỏ). |
-| 💼 **Career Hub** | `#career` | **Cổng kết nối nghề nghiệp:** Tin tuyển dụng Data Analyst/Engineer kèm bài toán Business Challenge thực tế từ doanh nghiệp. |
-| ❓ **Help & Guide** | `#help` | **Trung tâm trợ giúp:** Thanh tìm kiếm thông minh; Gamified Quest Checklist (4 nhiệm vụ tân thủ, +100 XP); Cẩm nang 6 phân hệ; FAQ Accordion; Kết nối Group Facebook 9,500+ thành viên. |
+| Trang chủ (Dashboard) | `#dashboard` | Trung tâm điều khiển cá nhân: Banner Hero tương tác Brilliant.org, cụm 3 thẻ chỉ số Gamified Stats (Điểm XP, Chuỗi ngày học Streak, Thử thách hôm nay), danh sách nhiệm vụ tân thủ và tiến độ kỹ năng tổng thể. |
+| Khám phá Data (Explore) | `#explore` | Định hướng nghề nghiệp: Bento Grid 4 lĩnh vực ứng dụng (E-commerce, Fintech, Streaming, Logistics); Thẻ mô tả 3 vị trí (Data Analyst, Data Engineer, Data Scientist); Bảng thang bậc thu nhập; 3 Mini Data Games và Bộ trắc nghiệm định hướng 5 bước. |
+| Lộ trình học (Roadmap) | `#roadmap` | Cây kỹ năng tương tác mô hình NeetCode: Thuật toán làm nổi bật đường dẫn tiên quyết (Prerequisite Path Traversal); Thanh công cụ Zoom controls viên thuốc (+/-/Focus); Hint bar gợi ý; Side Drawer tích hợp bài học YouTube và tài liệu W3Schools; Deep-linking bài tập. |
+| Phòng thực hành (Practice Lab) | `#practice` | Môi trường luyện code thực chiến: 42 bài tập phân loại theo 14 chủ đề kỹ năng (Python, NumPy, Pandas, Data Cleaning, SQL, EDA, Visualization, ML); Trình soạn thảo mã nguồn tương tác, bộ kiểm tra test cases tự động và chấm điểm XP tức thì. |
+| Dự án mẫu (Project Lab) | `#projects` | Thư viện đồ án Portfolio thực tế: Các bài toán kinh doanh trên dữ liệu thật (Phân tích hành vi khách hàng thương mại điện tử, Dự báo biến động nhân sự, Tối ưu chuỗi bán lẻ); Cấu trúc Card Header Minimalist bo góc 16px. |
+| Kho tài nguyên (Resources) | `#resources` | Học liệu tuyển chọn: Sách giáo trình chuyên ngành O'Reilly, danh mục khóa học chứng chỉ quốc tế (Google, Harvard, Kaggle), bộ Cheat Sheet tra cứu cú pháp và công cụ phần mềm chuẩn ngành. |
+| Tin tức Data & AI (Community) | `#community` | Tạp chí công nghệ chuyên sâu: Các bài viết phân tích xu hướng GenAI, LLMs, kiến trúc dữ liệu Big Data tại các tập đoàn lớn (Netflix, OpenAI, Anthropic); Banner kết nối Facebook Group chính thức với hơn 9,500 thành viên. |
+| Diễn đàn hỏi đáp (Data Q&A) | `#qa` | Hệ thống thảo luận kỹ thuật: Bố cục phân cấp câu hỏi và câu trả lời trực quan; Cơ chế biểu quyết (Upvote/Downvote); Điểm uy tín người đóng góp; Phân loại thẻ kỹ năng. |
+| Đấu trường (Challenge Arena) | `#challenge` | Sân chơi thử thách định kỳ: Bài toán dữ liệu hàng tuần; Bục vinh danh Podium Top 1 (Vàng kim), Top 2 (Bạc sáng), Top 3 (Đồng ánh cam) với hiệu ứng kim loại có chiều sâu; Bảng xếp hạng thành tích cộng đồng. |
+| Cổng nghề nghiệp (Career Hub) | `#career` | Kết nối cơ hội việc làm: Tin tuyển dụng Data Analyst và Data Engineer thực tế từ doanh nghiệp đối tác, tích hợp bài toán thử thách ứng tuyển trực tiếp. |
+| Trung tâm trợ giúp (Help Center) | `#help` | Hướng dẫn vận hành hệ thống: Tìm kiếm bài viết trợ giúp; Bảng kiểm tra nhiệm vụ nhập môn (Gamified Quest Checklist); Hệ thống câu hỏi thường gặp (FAQ Accordion). |
 
 ---
 
-## 🚀 Hướng dẫn Cài đặt & Khởi chạy
+## 4. QUY CHUẨN THIẾT KẾ VÀ NHẬN DIỆN THƯƠNG HIỆU
 
-Dự án được xây dựng trên nền tảng **Vanilla JavaScript ES Modules** thuần (No-build toolchain), có thể chạy ngay lập tức mà không bắt buộc phải cài đặt Node.js hay build webpack phức tạp.
+### 4.1. Hero Banner và Nghệ thuật Typography Tương tác
+- Phong cách chủ đạo: Lấy cảm hứng từ hệ thống edtech của Brilliant.org, sử dụng font chữ Serif cổ điển cỡ lớn (`Newsreader` / `Playfair Display`) kết hợp font đơn không gian (`JetBrains Mono`).
+- Đồ họa giao thoa có chủ đích (Intentional Overlap & Layering):
+  - Đường biểu đồ hồi quy màu cam: Bắt đầu luồn tự nhiên phía sau nửa bên phải chữ "Data", vươn ra khoảng trống bên phải 146px trên desktop; các điểm dữ liệu cam, beacon circle và badge R2 = 0.94 nằm hoàn toàn ngoài vùng chữ.
+  - Đường sóng lượn màu xanh: Luồn phía sau chân chữ "doing", tiếp nối nhịp điệu của tiêu đề.
+  - Phân tầng hiển thị (Stacking Context): Biểu đồ nằm sau (`z-index: 1`), nét chữ đen đặc nằm trên (`z-index: 2`, mã màu `#0F172A`). Đoạn đường vẽ bị che khuất tự nhiên bởi các nét chữ mà không dùng nền trắng nhân tạo.
 
-### Cách 1: Khởi chạy bằng Python (Khuyên dùng – Nhanh nhất)
+### 4.2. Cụm 3 Thẻ Thống kê Gamified Stats
+- Bố cục: 3 khối vòm bo góc đồng đều 26px / 24px, căn chỉnh 4 hàng thông tin pixel-perfect thẳng tắp trên mọi kích thước màn hình.
+- Bảng màu chuẩn tương phản WCAG AA (> 4.5:1):
+  - Thẻ 1 (Trái - Điểm tích lũy & Hạng): Nền Deep Navy `#0B2A4A`, viền `#175986`, điểm nhấn cyan `#38BDF8`, chữ chính `#F0F9FF`.
+  - Thẻ 2 (Giữa - Chuỗi ngày học Streak): Nền Gradient cam năng lượng `linear-gradient(135deg, #9A3412 0%, #C2410C 55%, #EA580C 100%)`, số ngày trắng lớn đậm, biểu tượng ngọn lửa vàng `#FDE68A`.
+  - Thẻ 3 (Phải - Thử thách hôm nay): Nền Royal Violet `#281342`, viền `#6D3A91`, điểm nhấn tím sáng `#C084FC`, chữ chính `#FAF5FF`.
 
-Nếu máy tính đã cài đặt Python (mặc định trên hầu hết môi trường Windows/Mac/Linux):
+### 4.3. Logo Thương hiệu và Biểu tượng Sidebar
+- Biểu tượng thương hiệu: Chữ cái lồng ghép DC cách điệu với 4 cột biểu đồ dữ liệu bên trong chữ D và vòng quỹ đạo hạt node bao quanh.
+- Định dạng xuất bản: Tỷ lệ vuông chuẩn 1:1 (`512x512px`), phiên bản màu xanh dương gradient (cyan sang royal blue đậm) trên nền trắng.
+- Tích hợp thanh bên: Container `.sidebar-logo-mark` kích thước chuẩn 36x36px, nền trắng cao cấp (`#FFFFFF`), viền nhẹ `1px solid var(--color-gray-200)` và đổ bóng nhẹ `0 1px 3px rgba(0,0,0,0.05)`, hòa hợp với tone sáng của sidebar và nhãn "Trang chủ".
+
+---
+
+## 5. HƯỚNG DẪN CÀI ĐẶT VÀ VẬN HÀNH
+
+Dự án được xây dựng trên nền tảng JavaScript ES Modules chuẩn trình duyệt, cho phép khởi chạy linh hoạt trên nhiều môi trường khác nhau mà không cần quy trình build phức tạp.
+
+### Phương thức 1: Sử dụng máy chủ Python (Tối ưu và nhanh nhất)
+Nếu môi trường máy tính đã có sẵn Python:
 
 ```bash
-# 1. Mở Terminal / PowerShell và chuyển vào thư mục dự án
+# Di chuyển vào thư mục dự án
 cd DaConnect
 
-# 2. Khởi chạy máy chủ HTTP tích hợp sẵn
+# Khởi chạy HTTP Server trên cổng 5173
 python -m http.server 5173
 ```
 
-Mở trình duyệt và truy cập: **`http://localhost:5173/`**
+Mở trình duyệt web và truy cập địa chỉ: `http://localhost:5173/`
 
----
-
-### Cách 2: Khởi chạy bằng Node.js & Vite
-
-Nếu máy tính đã cài đặt Node.js và npm:
+### Phương thức 2: Sử dụng Node.js và Vite
+Nếu sử dụng môi trường phát triển Node.js:
 
 ```bash
-# 1. Cài đặt các gói phụ trợ
+# Cài đặt các gói phụ trợ
 npm install
 
-# 2. Khởi chạy development server
+# Khởi chạy Vite Development Server
 npm run dev
 ```
 
 ---
 
-## 📁 Cấu trúc Thư mục Dự án
+## 6. CẤU TRÚC THƯ MỤC DỰ ÁN
 
-```
+```text
 DaConnect/
-├── index.html                   # HTML Entry Point (CSS links, App root, Toast container)
-├── package.json                 # Cấu hình dự án & scripts Vite
-├── README.md                    # Tài liệu hướng dẫn dự án
-├── AI_CHAT_LOG.md               # Nhật ký minh bạch hỗ trợ kỹ thuật AI (AI Disclosure Log)
+├── index.html                   # Entry point, import Google Fonts, CSS tokens và root DOM
+├── package.json                 # Cấu hình dự án và scripts Vite dev server
+├── README.md                    # Tài liệu kỹ thuật dự án chính thức
+├── AI_CHAT_LOG.md               # Hồ sơ nhật ký phát triển cộng tác với AI
 └── src/
-    ├── main.js                  # Khởi tạo App, Global State Management (XP, Streak, User)
-    ├── router.js                # Hash-based Client-side SPA Router
+    ├── main.js                  # Khởi tạo App, quản lý Router và trạng thái người dùng
+    ├── assets/                  # Tài nguyên đồ họa thương hiệu
+    │   ├── logo.png             # Master Logo vuông 512x512px nền sáng
+    │   ├── logo-full.png         # Logo vuông 512x512px kèm chữ DaConnect
+    │   ├── logo-trans.png        # Logo bản nền trong suốt RGBA
+    │   ├── favicon.png          # Favicon 64x64px
+    │   └── favicon-32x32.png    # Favicon 32x32px
+    ├── components/              # Các thành phần giao diện tái sử dụng
+    │   ├── navbar.js            # Thanh điều hướng trên cùng, breadcrumbs và ô tìm kiếm
+    │   ├── sidebar.js           # Thanh bên điều hướng tích hợp logo và menu chức năng
+    │   ├── modal.js             # Hộp thoại popup xác nhận và xem chi tiết
+    │   └── toast.js             # Hệ thống thông báo trạng thái người dùng
     ├── data/
-    │   └── mockData.js          # Dữ liệu mẫu (Roadmap, 42 bài tập, Projects, Resources, Q&A)
-    ├── components/
-    │   ├── icons.js             # Thư viện 40+ Outline SVG Icons (Lucide-style, không dùng emojis)
-    │   ├── sidebar.js           # Thanh điều hướng Sidebar thực tế (Explore card, Help menu)
-    │   ├── navbar.js            # Thanh Top Navigation & Search
-    │   ├── modal.js             # Overlay Modal tương tác
-    │   └── toast.js             # Toast Notifications đa trạng thái (success, error, info)
-    ├── modules/
+    │   └── mockData.js          # CSDL giả lập: 42 bài tập, cây roadmap, tin tức, dự án
+    ├── modules/                 # Các phân hệ chức năng độc lập (Feature Modules)
     │   ├── dashboard.js         # Phân hệ Trang chủ tổng quan
-    │   ├── explore.js           # Phân hệ Khám phá Data (Bento Grid, Career, Games, Quiz)
-    │   ├── roadmap.js           # Phân hệ Cây kỹ năng tương tác & Lesson Drawer
-    │   ├── practice.js          # Phân hệ Practice Lab với 42 bài tập code
-    │   ├── projects.js          # Phân hệ Project Lab
-    │   ├── resources.js         # Phân hệ Tài nguyên học tập Data & AI
-    │   ├── community.js         # Phân hệ Data & AI News
-    │   ├── qa.js                # Phân hệ Hỏi đáp Data Q&A
-    │   ├── challenge.js         # Phân hệ Đấu trường Challenge Arena & Leaderboard
-    │   ├── career.js            # Phân hệ Career Hub & Tuyển dụng
-    │   └── help.js              # Phân hệ Trợ giúp, Quest Checklist & FAQ
-    └── styles/
-        ├── tokens.css           # Design Tokens (Bảng màu Ocean Blue, Navy, Spacing, Typography)
-        ├── base.css             # CSS Reset & Base typography
-        ├── layout.css           # Bố cục Flex/Grid (Sidebar, Header, Main content)
-        ├── components.css       # Styles cho Buttons, Badges, Tables, Cards, Modals
-        ├── roadmap.css          # Styles riêng cho Canvas Roadmap & Drawer
-        ├── modules.css          # Styles cho Challenge Podium, Q&A, Projects
-        ├── explore.css          # Styles riêng cho Explore Data (Bento, Games, Stepper Quiz)
-        └── help.css             # Styles cho Help Center, Quests & Community Banner
+    │   ├── explore.js           # Phân hệ Khám phá Data (Bento Grid, Games, Quiz)
+    │   ├── roadmap.js           # Phân hệ Cây kỹ năng tương tác và Drawer bài học
+    │   ├── practice.js          # Phân hệ Phòng thực hành với 42 bài tập lập trình
+    │   ├── projects.js          # Phân hệ Đồ án mẫu Portfolio thực tế
+    │   ├── resources.js         # Phân hệ Tài nguyên học tập và sách giáo trình
+    │   ├── community.js         # Phân hệ Tạp chí tin tức AI và kết nối mạng xã hội
+    │   ├── qa.js                # Phân hệ Diễn đàn hỏi đáp kỹ thuật
+    │   ├── challenge.js         # Phân hệ Đấu trường thi đấu và bảng xếp hạng
+    │   ├── career.js            # Phân hệ Cổng kết nối việc làm và bài toán doanh nghiệp
+    │   └── help.js              # Phân hệ Hướng dẫn sử dụng và nhiệm vụ tân thủ
+    └── styles/                  # Hệ thống tài liệu thiết kế CSS phân tầng
+        ├── tokens.css           # Biến CSS hệ thống (Màu sắc, typography, radius, bóng đổ)
+        ├── base.css             # Reset CSS chuẩn và thiết lập typography mặc định
+        ├── layout.css           # Cấu trúc khung lưới ứng dụng và responsive breakpoints
+        ├── components.css       # Quy chuẩn giao diện cho nút bấm, thẻ, bảng và logo
+        ├── modules.css          # Quy chuẩn giao diện chuyên sâu cho từng phân hệ
+        ├── roadmap.css          # Quy chuẩn giao diện riêng cho đồ họa Canvas và SVG
+        ├── explore.css          # Quy chuẩn giao diện phân hệ Khám phá Data
+        └── help.css             # Quy chuẩn giao diện phân hệ Trợ giúp và nhiệm vụ
 ```
 
 ---
 
-## 🎨 Tiêu chuẩn Thiết kế (Design System)
+## 7. CƠ CHẾ QUẢN LÝ TRẠNG THÁI (STATE PERSISTENCE)
 
-Hệ thống nhận diện thương hiệu tuân thủ nghiêm ngặt chuẩn UI edtech hiện đại:
+Hệ thống sử dụng cơ chế lưu trữ cục bộ phía client thông qua `window.localStorage` để duy trì dữ liệu người dùng qua các phiên làm việc:
 
-| Yếu tố | Quy chuẩn kỹ thuật |
+| Key lưu trữ | Dữ liệu quản lý |
 | :--- | :--- |
-| **Bảng màu chủ đạo** | **Navy quý tộc:** `#0B1533` (Tiêu đề, Header tables, Hero banner)<br>**Cam nhận diện:** `#FF5B18` (Buttons, Active tags, Progress, Accent)<br>**Xanh đại dương:** `#0284C7` (Link, Primary highlights)<br>**Nền giao diện:** `#F8FAFC` (Slate-50 thanh lịch, tương phản cao) |
-| **Hệ thống Badge Độ khó** | **Beginner / Easy:** Nền `#ECFDF3` · Chữ xanh lá `#12B76A`<br>**Intermediate / Medium:** Nền `#FFFAEB` · Chữ vàng cam `#F79009`<br>**Advanced / Hard:** Nền `#FEF3F2` · Chữ đỏ san hô `#F04438` *(Đồng bộ 100%)* |
-| **Typography** | Font chính: `Inter` (Sans-serif hiện đại, độ đọc cao)<br>Font code: `JetBrains Mono` (Hiển thị cú pháp code sắc nét) |
-| **Iconography** | 100% SVG Outline Vector thuần (Stroke 2px, nét bo cong, không dùng emoji màu) |
-| **Bo góc & Đổ bóng** | Bo góc lớn mềm mại (`rounded-2xl` 16px - 24px), đổ bóng đa tầng nhẹ nhàng (`box-shadow: 0 4px 20px rgba(11, 21, 51, 0.04)`) |
+| `daconnect_user` | Thông tin hồ sơ người dùng, tổng điểm kinh nghiệm (XP), cấp hạng hiện tại (Silver II). |
+| `daconnect_streak` | Số ngày học liên tục (Streak), ngày đăng nhập gần nhất. |
+| `daconnect_completed_exercises` | Danh sách các mã định danh bài tập đã hoàn thành trong Practice Lab (tự động đồng bộ tick xanh trên Roadmap). |
+| `daconnect_checklist` | Trạng thái hoàn thành của 4 nhiệm vụ nhập môn trên Dashboard. |
+| `daconnect_roadmap_progress` | Tỷ lệ phần trăm hoàn thành theo từng phân nhóm kỹ năng. |
 
----
+### Lệnh khôi phục trạng thái ban đầu
+Để thiết lập lại toàn bộ dữ liệu mẫu về trạng thái gốc, mở cửa sổ Developer Tools (F12), chuyển sang tab Console và thực thi:
 
-## 💾 Cơ chế Lưu trữ & Quản lý State
-
-Toàn bộ trạng thái tương tác của người dùng được đồng bộ và lưu trữ cục bộ trong **`localStorage`** của trình duyệt:
-
-- `daconnect_state`: Lưu tiến độ bài tập giải xong, trạng thái roadmap nodes, điểm XP cá nhân, bài viết Q&A đã vote.
-- `daconnect_gamified_quests`: Trạng thái hoàn thành 4 nhiệm vụ tân thủ trong Help Center.
-- `daconnect_game_detective_awarded`: Ghi nhận nhận thưởng game Thám tử dữ liệu (+30 XP).
-- `daconnect_game_chart_awarded`: Ghi nhận nhận thưởng game Chọn biểu đồ (+30 XP).
-- `daconnect_game_insight_awarded`: Ghi nhận nhận thưởng game Đọc insight (+30 XP).
-
-### Khôi phục trạng thái ban đầu (Reset Data)
-Để reset toàn bộ dữ liệu mẫu về mặc định, mở Console trên trình duyệt (F12) và chạy:
 ```javascript
 localStorage.clear();
-location.reload();
+window.location.reload();
 ```
 
 ---
 
-## 🤝 Mạng lưới Liên kết giữa các Phân hệ
+## 8. TIÊU CHUẨN CHẤT LƯỢNG VÀ KIỂM THỬ
 
-```
-   ┌─────────────────────────────────────────────────────────────┐
-   │                         DACONNECT                           │
-   └───────────────┬─────────────────────────────┬───────────────┘
-                   │                             │
-         ┌─────────▼─────────┐         ┌─────────▼─────────┐
-         │   Explore Data    │         │    Help Center    │
-         │  (Định hướng)     │         │ (Nhiệm vụ tân thủ)│
-         └─────────┬─────────┘         └─────────┬─────────┘
-                   │ (Gợi ý lộ trình)            │ (Thưởng +100 XP)
-         ┌─────────▼─────────┐                   │
-         │  Interactive      │◄──────────────────┤
-         │     Roadmap       │ (Mở cây kỹ năng)  │
-         └─────────┬─────────┘                   │
-                   │ (Deep-link bài tập)         │
-         ┌─────────▼─────────┐                   │
-         │   Practice Lab    │◄──────────────────┤
-         │ (42 bài thực hành)│ (Luyện code)      │
-         └─────────┬─────────┘                   │
-                   │ (+XP khi giải đúng)         │
-         ┌─────────▼─────────┐                   │
-         │  Challenge Arena  │◄──────────────────┘
-         │ (Bảng vàng Podium)│ (Tham gia đấu trường)
-         └───────────────────┘
-```
+Hệ thống trải qua quy trình kiểm thử trực quan tự động (Automated Visual Regression Testing) trên các môi trường độ phân giải chuẩn công nghiệp:
+- Màn hình Desktop tiêu chuẩn: `1920x1080` và `1440x900`.
+- Màn hình Laptop nhỏ: `1366x768`.
+- Màn hình Thiết bị di động: `390x844` (chuẩn viewport điện thoại thông minh).
+
+Các tiêu chí đảm bảo chất lượng:
+- Bố cục responsive không xuất hiện thanh cuộn ngang ngoài ý muốn (Zero horizontal scroll overflow).
+- Không xảy ra tình trạng va chạm văn bản hoặc đồ họa che khuất ký tự đọc.
+- Thời gian tải trang ban đầu và chuyển đổi giữa các module đạt tốc độ tức thì dưới 100ms.
 
 ---
 
-## 👥 Cộng đồng & Đóng góp
+## 9. KÊNH THÔNG TIN VÀ CỘNG ĐỒNG
 
-- **Facebook Group chính thức:** [DaConnect Community (9,500+ thành viên)](https://web.facebook.com/share/g/1F2AeXe8m6/)
-- **Sứ mệnh:** Cung cấp cho sinh viên và người chuyển ngành kiến thức thực chiến về Khoa học Dữ liệu, kết nối chuyên gia, chia sẻ đồ án và cập nhật cơ hội việc làm chất lượng.
+- Nhóm Facebook chính thức: [DaConnect Community (Hơn 9,500 thành viên)](https://web.facebook.com/share/g/1F2AeXe8m6/)
+- Mục tiêu cộng đồng: Chia sẻ kiến thức phân tích dữ liệu thực chiến, kết nối chuyên gia, hỗ trợ xây dựng Portfolio và cập nhật các cơ hội nghề nghiệp chất lượng cao.
 
 ---
 
-© 2026 **DaConnect Team** · All rights reserved.
+Bản quyền thuộc về **DaConnect Development Team** (2026). Tất cả các quyền được bảo lưu.
