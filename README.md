@@ -114,6 +114,7 @@ DaConnect/
 ├── package.json                 # Cấu hình dự án và scripts Vite dev server
 ├── README.md                    # Tài liệu kỹ thuật dự án chính thức
 ├── AI_CHAT_LOG.md               # Hồ sơ nhật ký phát triển cộng tác với AI
+├── public/                      # Thư mục tài nguyên tĩnh chuẩn Vite/Vercel (logo, favicon)
 └── src/
     ├── main.js                  # Khởi tạo App, quản lý Router và trạng thái người dùng
     ├── assets/                  # Tài nguyên đồ họa thương hiệu
