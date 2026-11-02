@@ -200,6 +200,5 @@ Các tiêu chí đảm bảo chất lượng:
 
 ## 10. THÔNG TIN ĐỘI NGŨ VÀ BẢN QUYỀN
 
-- **Đơn vị phát triển:** DaConnect Development Team (2026)
-- **Đại diện dự án:** Team 3 | Ba lọ mất nhãn | CTE FTU VÒNG 3 TW |
-- **Tình trạng bản quyền:** Bản quyền thuộc về **DaConnect Development Team** (2026). Tất cả các quyền được bảo lưu.
+- **Đơn vị phát triển:** Team 3 | Ba lọ mất nhãn | CTE FTU VÒNG 3 TW |
+- **Tình trạng bản quyền:** Bản quyền thuộc về **Ba lọ mất nhãn** (2026). Tất cả các quyền được bảo lưu.
