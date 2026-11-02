@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DaConnect – Data Career Community</title>
   <meta name="description" content="Cộng đồng học tập và phát triển sự nghiệp Data dành cho sinh viên và chuyên gia." />
-  <link rel="icon" type="image/png" href="./src/assets/favicon.png" />
+  <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&family=Newsreader:ital,opsz,wght@0,6..72,700;0,6..72,800;0,6..72,900;1,6..72,700;1,6..72,800&display=swap" rel="stylesheet" />
@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="./src/styles/help.css" />
   <script>
     window.addEventListener('error', function(e) {
+      if (e.target && e.target !== window && (e.target.tagName === 'IMG' || e.target.tagName === 'LINK')) {
+        return;
+      }
       var src = (e.target && (e.target.src || e.target.href)) || '';
       var msg = e.message || (src ? 'Không tải được file (Lỗi 404 hoặc MIME type): ' + src : 'Lỗi thực thi script');
       var el = document.getElementById('debug-error-box');
